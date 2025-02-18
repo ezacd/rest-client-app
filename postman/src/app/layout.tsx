@@ -1,16 +1,8 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import LangLogo from '@/assets/icons/lang.svg';
+import LogOutLogo from '@/assets/icons/logout.svg';
+import styles from '@/app/page.module.css';
 import './globals.css';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: 'Postman',
@@ -24,8 +16,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+      <body className={styles.body}>
+        <header className={styles.header}>
+          <h1>Postman</h1>
+          <div className={styles.headerButtons}>
+            <LangLogo className={`${styles.langLogo} ${styles.headerSvg}`} />
+            <LogOutLogo
+              className={`${styles.logoutLogo} ${styles.headerSvg}`}
+            />
+          </div>
+        </header>
+        <main>{children}</main>
+        <footer></footer>
       </body>
     </html>
   );
