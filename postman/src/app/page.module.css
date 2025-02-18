@@ -42,3 +42,27 @@
 .headerSvg:hover {
   transform: scale(1.2);
 }
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 20px;
+  background-color: rgb(38, 38, 38);
+  color: white;
+
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+
+.footerLink {
+  text-decoration: none;
+  color: #3498db;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.footerLink:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}

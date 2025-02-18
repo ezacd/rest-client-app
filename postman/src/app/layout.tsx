@@ -3,6 +3,7 @@ import LangLogo from '@/assets/icons/lang.svg';
 import LogOutLogo from '@/assets/icons/logout.svg';
 import styles from '@/app/page.module.css';
 import './globals.css';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Postman',
@@ -27,7 +28,15 @@ export default function RootLayout({
           </div>
         </header>
         <main>{children}</main>
-        <footer></footer>
+        <footer className={styles.footer}>
+          <Link href="https://github.com/ezacd" className={styles.footerLink}>
+            ezacd
+          </Link>
+          <p>2025</p>
+          <Link href="http://rs.school/" className={styles.footerLink}>
+            RSchool
+          </Link>
+        </footer>
       </body>
     </html>
   );
