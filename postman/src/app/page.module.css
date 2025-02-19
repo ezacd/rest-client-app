@@ -27,6 +27,9 @@
   cursor: pointer;
   width: 24px;
   height: 24px;
+
+  position: absolute;
+  left: 0px;
 }
 
 .logoutLogo {
@@ -41,6 +44,18 @@
 
 .headerSvg:hover {
   transform: scale(1.2);
+}
+
+.langBox {
+  width: 51px;
+  height: 24px;
+  position: relative;
+}
+
+.lang {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
 }
 
 .footer {
