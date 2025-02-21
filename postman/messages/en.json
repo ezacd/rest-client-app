@@ -1,5 +1,8 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "lang": "EN",
+    "viarbles": "Viarbles",
+    "code": "Code",
+    "history": "History"
   }
 }
