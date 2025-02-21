@@ -3,12 +3,14 @@
 import LangLogo from '@/assets/icons/lang.svg';
 import styles from '@/app/page.module.css';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 type Lang = 'EN' | 'RU';
 
 export default function HeaderLangChange() {
   const [lang, setLang] = useState<Lang>('EN');
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsMounted(true);
@@ -21,8 +23,9 @@ export default function HeaderLangChange() {
   useEffect(() => {
     if (isMounted) {
       localStorage.setItem('lang', lang);
+      router.push(lang.toLocaleLowerCase());
     }
-  }, [lang, isMounted]);
+  }, [lang, isMounted, router]);
 
   const handleClick = () => {
     setLang((prevLang) => (prevLang === 'EN' ? 'RU' : 'EN'));
