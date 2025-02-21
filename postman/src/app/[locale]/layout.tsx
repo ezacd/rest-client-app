@@ -9,6 +9,7 @@ import styles from '@/app/page.module.css';
 import '../globals.css';
 import Link from 'next/link';
 import HeaderLangChange from '../_components/HeaderLangChange';
+import { Locale } from '@/i18n/request';
 
 export const metadata: Metadata = {
   title: 'Postman',
@@ -24,8 +25,7 @@ export default async function RootLayout({
 }) {
   const { locale } = await params; // Разбираем locale отдельно, без деструктуризации в аргументе
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
 
