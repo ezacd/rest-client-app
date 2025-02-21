@@ -34,11 +34,8 @@ export default function HeaderLangChange() {
   };
 
   return (
-    <div className={styles.langBox}>
-      <LangLogo
-        className={`${styles.langLogo} ${styles.headerSvg}`}
-        onClick={handleClick}
-      />
+    <div className={styles.langBox} onClick={handleClick}>
+      <LangLogo className={`${styles.langLogo} ${styles.headerSvg}`} />
       <p className={styles.lang}>{isMounted ? t('lang') : '...'}</p>
     </div>
   );

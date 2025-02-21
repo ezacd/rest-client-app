@@ -39,9 +39,11 @@ export default async function RootLayout({
             <h1>Postman</h1>
             <div className={styles.headerButtons}>
               <HeaderLangChange />
-              <LogOutLogo
-                className={`${styles.logoutLogo} ${styles.headerSvg}`}
-              />
+              <div className={styles.logoutBox}>
+                <LogOutLogo
+                  className={`${styles.logoutLogo} ${styles.headerSvg}`}
+                />
+              </div>
             </div>
           </header>
           <main className={styles.main}>{children}</main>

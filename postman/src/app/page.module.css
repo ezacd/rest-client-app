@@ -35,9 +35,6 @@
   cursor: pointer;
   width: 24px;
   height: 24px;
-
-  position: absolute;
-  left: 0px;
 }
 
 .logoutLogo {
@@ -46,24 +43,38 @@
   height: 24px;
 }
 
-.headerSvg {
-  transition: transform 0.1s ease-in-out;
+.logoutBox {
+  padding: 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.headerSvg:hover {
-  transform: scale(1.2);
+.logoutBox:hover {
+  background-color: rgb(59, 59, 59);
 }
 
 .langBox {
-  width: 51px;
-  height: 24px;
-  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  gap: 10px;
+  padding: 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.langBox:hover {
+  background-color: rgb(59, 59, 59);
 }
 
 .lang {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
+  display: flex;
+  align-items: flex-end;
 }
 
 .footer {
