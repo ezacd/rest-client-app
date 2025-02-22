@@ -3,6 +3,8 @@
     "lang": "EN",
     "viarbles": "Viarbles",
     "code": "Code",
-    "history": "History"
+    "history": "History",
+    "enterURL": "Enter URL or paste text",
+    "send": "Send"
   }
 }

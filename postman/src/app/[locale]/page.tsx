@@ -3,6 +3,7 @@ import Viarbles from '@/assets/icons/viarbles.svg';
 import Code from '@/assets/icons/code.svg';
 import History from '@/assets/icons/history.svg';
 import styles from '@/app/page.module.css';
+import CreateRequest from '../_components/CreateRequest';
 
 export default function HomePage() {
   const t = useTranslations('HomePage');
@@ -23,7 +24,7 @@ export default function HomePage() {
         </div>
       </aside>
       <section className={styles.requestsSection}>
-        <div className={styles.requestName}></div>
+        <CreateRequest />
       </section>
     </section>
   );

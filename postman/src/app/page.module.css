@@ -140,3 +140,102 @@
 .asideButtonsText {
   font-size: 12px;
 }
+
+.requestName {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+}
+
+.requestNameSVG {
+  width: 32px;
+  height: 32px;
+  fill: rgb(92, 166, 179);
+}
+
+.requestNameText {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.requestEditor {
+  display: flex;
+  flex-direction: row;
+}
+
+.request {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 15px;
+}
+
+.createRequest {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  width: calc(100vw - 105px);
+}
+
+.createRequestField {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.selectMethod {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23fff' d='M0 0l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
+  padding: 15px 35px 15px 15px;
+  font-size: 14px;
+  color: white;
+  font-weight: 700;
+  transition: border-color 0.2s, box-shadow 0.3s;
+  width: 120px;
+  border: none;
+}
+
+.createRequestLine {
+  width: 2px;
+  height: 30px;
+  background-color: rgb(59, 59, 59);
+}
+
+.requestInput {
+  border: none;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 16px;
+  flex-grow: 1;
+  transition: border-color 0.2s, box-shadow 0.3s;
+}
+
+.requestInput:focus,
+.selectMethod:focus {
+  outline: none;
+}
+
+.createRequestButton {
+  background-color: rgb(42, 99, 203);
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  width: 120px;
+}
+
+.createRequestButton:hover {
+  background-color: rgb(40, 84, 165);
+}
