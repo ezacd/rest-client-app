@@ -4,7 +4,7 @@ import Trash from '@/assets/icons/trash.svg';
 import CheckboxNo from '@/assets/icons/checkbox-no.svg';
 import CheckboxYes from '@/assets/icons/checkbox-yes.svg';
 import styles from '@/app/_components/components-styles/QueryParamsTable.module.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 type Param = {
@@ -30,22 +30,28 @@ export default function QueryParamsTable() {
     }
   }, [params]);
 
-  const handleRemoveRow = (index: number) => {
-    if (params.length < 2) return;
-    setParams(params.filter((_, i) => i !== index));
-  };
+  const handleRemoveRow = useCallback(
+    (index: number) => {
+      if (params.length < 2) return;
+      setParams(params.filter((_, i) => i !== index));
+    },
+    [params],
+  );
 
-  const handleChange = (
-    index: number,
-    field: 'key' | 'value' | 'checked',
-    value: string | boolean,
-  ) => {
-    setParams((prevParams) =>
-      prevParams.map((param, i) =>
-        i === index ? { ...param, [field]: value } : param,
-      ),
-    );
-  };
+  const handleChange = useCallback(
+    (
+      index: number,
+      field: 'key' | 'value' | 'checked',
+      value: string | boolean,
+    ) => {
+      setParams((prevParams) =>
+        prevParams.map((param, i) =>
+          i === index ? { ...param, [field]: value } : param,
+        ),
+      );
+    },
+    [],
+  );
 
   const handleToggleAll = () => {
     const newChecked = !allChecked;
