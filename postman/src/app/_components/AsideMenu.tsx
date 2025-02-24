@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import Viarbles from '@/assets/icons/viarbles.svg';
 import Code from '@/assets/icons/code.svg';
 import History from '@/assets/icons/history.svg';
-import styles from '@/app/page.module.css';
+import styles from '@/app/_components/components-styles/AsideMenu.module.css';
 
 export default function Aside() {
   const t = useTranslations('HomePage');
