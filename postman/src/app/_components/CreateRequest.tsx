@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import styles from '@/app/page.module.css';
+import styles from '@/app/_components/components-styles/CreateRequest.module.css';
 import HTTP from '@/assets/icons/http.svg';
 
 export default function CreateRequest() {
