@@ -177,7 +177,7 @@
   gap: 20px;
   align-items: center;
   justify-content: flex-start;
-  width: calc(100vw - 105px);
+  width: calc(100vw - 115px);
 }
 
 .createRequestField {
