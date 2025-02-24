@@ -31,12 +31,6 @@
   gap: 50px;
 }
 
-.langLogo {
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
-}
-
 .logoutLogo {
   cursor: pointer;
   width: 24px;
@@ -54,21 +48,6 @@
 }
 
 .logoutBox:hover {
-  background-color: rgb(59, 59, 59);
-}
-
-.langBox {
-  display: flex;
-  flex-direction: row;
-  align-items: end;
-  gap: 10px;
-  padding: 10px;
-  transition: background-color 0.2s ease-in-out;
-  cursor: pointer;
-  border-radius: 10px;
-}
-
-.langBox:hover {
   background-color: rgb(59, 59, 59);
 }
 

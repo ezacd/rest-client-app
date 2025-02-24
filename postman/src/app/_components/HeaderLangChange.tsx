@@ -1,7 +1,7 @@
 'use client';
 
 import LangLogo from '@/assets/icons/lang.svg';
-import styles from '@/app/page.module.css';
+import styles from '@/app/_components/components-styles/HeaderLangChange.module.css';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
