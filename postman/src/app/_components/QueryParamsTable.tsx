@@ -4,7 +4,8 @@ import Trash from '@/assets/icons/trash.svg';
 import CheckboxNo from '@/assets/icons/checkbox-no.svg';
 import CheckboxYes from '@/assets/icons/checkbox-yes.svg';
 import styles from '@/app/_components/components-styles/QueryParamsTable.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 type Param = {
   key: string;
@@ -17,27 +18,33 @@ export default function QueryParamsTable() {
     { key: '', value: '', checked: true },
   ]);
   const [allChecked, setAllChecked] = useState(true);
+  const t = useTranslations('HomePage');
 
-  const handleAddRow = () => {
-    setParams([...params, { key: '', value: '', checked: true }]);
-  };
+  useEffect(() => {
+    const lastParam = params.at(-1);
+    if (lastParam && (lastParam.key !== '' || lastParam.value !== '')) {
+      setParams((prevParams) => [
+        ...prevParams,
+        { key: '', value: '', checked: true },
+      ]);
+    }
+  }, [params]);
 
   const handleRemoveRow = (index: number) => {
+    if (params.length < 2) return;
     setParams(params.filter((_, i) => i !== index));
   };
 
   const handleChange = (
     index: number,
-    field: keyof Param,
+    field: 'key' | 'value' | 'checked',
     value: string | boolean,
   ) => {
-    const updatedParams = [...params];
-    if (field === 'checked') {
-      updatedParams[index][field] = value as boolean;
-    } else {
-      updatedParams[index][field] = value as string;
-    }
-    setParams(updatedParams);
+    setParams((prevParams) =>
+      prevParams.map((param, i) =>
+        i === index ? { ...param, [field]: value } : param,
+      ),
+    );
   };
 
   const handleToggleAll = () => {
@@ -74,7 +81,7 @@ export default function QueryParamsTable() {
         </thead>
         <tbody>
           {params.map((param, index) => (
-            <tr key={index}>
+            <tr key={index} id={String(index)}>
               <td>
                 <label className={styles.checkboxWrapper}>
                   <input
@@ -96,7 +103,7 @@ export default function QueryParamsTable() {
                 <input
                   type="text"
                   value={param.key}
-                  placeholder="Key"
+                  placeholder={t('key')}
                   onChange={(e) => handleChange(index, 'key', e.target.value)}
                 />
               </td>
@@ -104,7 +111,7 @@ export default function QueryParamsTable() {
                 <input
                   type="text"
                   value={param.value}
-                  placeholder="Value"
+                  placeholder={t('value')}
                   onChange={(e) => handleChange(index, 'value', e.target.value)}
                 />
               </td>
@@ -120,7 +127,6 @@ export default function QueryParamsTable() {
           ))}
         </tbody>
       </table>
-      <button onClick={handleAddRow}>➕ Add Param</button>
     </div>
   );
 }
