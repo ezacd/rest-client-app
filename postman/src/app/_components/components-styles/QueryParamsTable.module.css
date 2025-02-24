@@ -1,0 +1,76 @@
+.container {
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-spacing: 0;
+}
+
+.table th,
+.table td {
+  border: 1px solid rgb(63, 68, 70);
+  padding: 0;
+}
+
+.table th {
+  padding: 10px;
+}
+
+.table input {
+  width: 100%;
+  padding: 0 20px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background-color: rgb(24, 26, 27);
+}
+
+.removeButton {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background: none;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeButton:hover {
+  background-color: rgb(59, 59, 59);
+}
+
+.bulkEdit {
+  margin-left: 10px;
+}
+
+.deleteRow {
+  border: none !important;
+  padding: 10px;
+}
+
+.trash {
+  width: 25px;
+  height: 25px;
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hiddenCheckbox {
+  display: none;
+}
+
+.checkIcon {
+  width: 30px;
+  height: 30px;
+  stroke: white;
+  cursor: pointer;
+}

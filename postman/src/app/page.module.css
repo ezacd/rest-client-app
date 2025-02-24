@@ -5,7 +5,7 @@
 .body {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(33, 33, 33);
+  background-color: rgb(25, 27, 28);
   color: white;
 
   display: flex;
@@ -21,7 +21,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: rgb(38, 38, 38);
+  background-color: rgb(25, 27, 28);
+  border-bottom: 1px solid rgb(48, 48, 48);
   color: white;
 }
 
@@ -45,6 +46,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  background: none;
 }
 
 .logoutBox:hover {
@@ -83,4 +86,8 @@
 .mainSection {
   display: flex;
   flex-direction: row;
+}
+
+.requestsSection {
+  padding: 20px;
 }

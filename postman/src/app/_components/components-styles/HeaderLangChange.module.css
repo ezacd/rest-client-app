@@ -7,6 +7,8 @@
   transition: background-color 0.2s ease-in-out;
   cursor: pointer;
   border-radius: 10px;
+  background: none;
+  border: none;
 }
 
 .langBox:hover {

@@ -25,7 +25,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 15px;
 }
 
 .createRequest {
@@ -34,14 +33,14 @@
   gap: 20px;
   align-items: center;
   justify-content: flex-start;
-  width: calc(100vw - 115px);
+  width: calc(100vw - 120px);
 }
 
 .createRequestField {
   display: flex;
   flex-direction: row;
   flex: 1;
-  border: 2px solid #ccc;
+  border: 2px solid rgb(63, 68, 70);
   border-radius: 8px;
   align-items: center;
 }
