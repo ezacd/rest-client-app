@@ -67,19 +67,7 @@ export default function QueryParamsTable() {
         <thead>
           <tr>
             <th>
-              <label className={styles.checkboxWrapper}>
-                <input
-                  type="checkbox"
-                  className={styles.hiddenCheckbox}
-                  checked={allChecked}
-                  onChange={handleToggleAll}
-                />
-                {allChecked ? (
-                  <CheckboxYes className={styles.checkIcon} />
-                ) : (
-                  <CheckboxNo className={styles.checkIcon} />
-                )}
-              </label>
+              <Checkbox checked={allChecked} onChange={handleToggleAll} />
             </th>
             <th>Key</th>
             <th>Value</th>
@@ -89,21 +77,12 @@ export default function QueryParamsTable() {
           {params.map((param, index) => (
             <tr key={index} id={String(index)}>
               <td>
-                <label className={styles.checkboxWrapper}>
-                  <input
-                    type="checkbox"
-                    className={styles.hiddenCheckbox}
-                    checked={param.checked}
-                    onChange={() =>
-                      handleChange(index, 'checked', !param.checked)
-                    }
-                  />
-                  {param.checked ? (
-                    <CheckboxYes className={styles.checkIcon} />
-                  ) : (
-                    <CheckboxNo className={styles.checkIcon} />
-                  )}
-                </label>
+                <Checkbox
+                  checked={param.checked}
+                  onChange={() =>
+                    handleChange(index, 'checked', !param.checked)
+                  }
+                />
               </td>
               <td>
                 <input
@@ -134,5 +113,25 @@ export default function QueryParamsTable() {
         </tbody>
       </table>
     </div>
+  );
+}
+
+type CheckboxProps = { checked: boolean; onChange: () => void };
+
+function Checkbox({ checked, onChange }: CheckboxProps) {
+  return (
+    <label className={styles.checkboxWrapper}>
+      <input
+        type="checkbox"
+        className={styles.hiddenCheckbox}
+        checked={checked}
+        onChange={onChange}
+      />
+      {checked ? (
+        <CheckboxYes className={styles.checkIcon} />
+      ) : (
+        <CheckboxNo className={styles.checkIcon} />
+      )}
+    </label>
   );
 }
