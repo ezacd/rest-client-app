@@ -39,20 +39,18 @@ export default function QueryParamsTable({
   }, [params]);
 
   useEffect(() => {
-    let queryParams = '';
-    let isFirst = true;
+    const validParams = params.filter(
+      (param) => param.key !== '' && param.checked,
+    );
 
-    params.map((param) => {
-      if (param.key === '' || !param.checked) return;
-      if (isFirst) {
-        queryParams += '?' + param.key + '=' + param.value;
-        isFirst = false;
-      } else {
-        queryParams += '&' + param.key + '=' + param.value;
-      }
-    });
+    const queryParams = validParams
+      .map((param) => `${param.key}=${param.value}`)
+      .join('&');
+
     const baseUrl = requestValue.split('?')[0];
-    setRequestValue(baseUrl + queryParams);
+    const finalUrl = queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
+
+    setRequestValue(finalUrl);
   }, [params, requestValue, setRequestValue]);
 
   const handleRemoveRow = useCallback(
