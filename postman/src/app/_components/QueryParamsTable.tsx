@@ -13,7 +13,15 @@ type Param = {
   checked: boolean;
 };
 
-export default function QueryParamsTable() {
+type Props = {
+  requestValue: string;
+  setRequestValue: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function QueryParamsTable({
+  requestValue,
+  setRequestValue,
+}: Props) {
   const [params, setParams] = useState<Param[]>([
     { key: '', value: '', checked: true },
   ]);
@@ -29,6 +37,23 @@ export default function QueryParamsTable() {
       ]);
     }
   }, [params]);
+
+  useEffect(() => {
+    let queryParams = '';
+    let isFirst = true;
+
+    params.map((param) => {
+      if (param.key === '' || !param.checked) return;
+      if (isFirst) {
+        queryParams += '?' + param.key + '=' + param.value;
+        isFirst = false;
+      } else {
+        queryParams += '&' + param.key + '=' + param.value;
+      }
+    });
+    const baseUrl = requestValue.split('?')[0];
+    setRequestValue(baseUrl + queryParams);
+  }, [params, requestValue, setRequestValue]);
 
   const handleRemoveRow = useCallback(
     (index: number) => {

@@ -2,7 +2,15 @@ import { useTranslations } from 'next-intl';
 import styles from '@/app/_components/components-styles/CreateRequest.module.css';
 import HTTP from '@/assets/icons/http.svg';
 
-export default function CreateRequest() {
+type Props = {
+  requestValue: string;
+  setRequestValue: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function CreateRequest({
+  requestValue,
+  setRequestValue,
+}: Props) {
   const t = useTranslations('HomePage');
 
   return (
@@ -54,6 +62,8 @@ export default function CreateRequest() {
               className={styles.requestInput}
               name="url"
               placeholder={t('enterURL')}
+              value={requestValue}
+              onChange={(e) => setRequestValue(e.target.value)}
             />
           </div>
           <button className={styles.createRequestButton} type="submit">
