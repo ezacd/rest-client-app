@@ -28,6 +28,7 @@ export default function QueryParamsTable({
   const [allChecked, setAllChecked] = useState(true);
   const t = useTranslations('HomePage');
 
+  // add new row
   useEffect(() => {
     const lastParam = params.at(-1);
     if (lastParam && (lastParam.key !== '' || lastParam.value !== '')) {
@@ -38,6 +39,7 @@ export default function QueryParamsTable({
     }
   }, [params]);
 
+  //  add query params
   useEffect(() => {
     const validParams = params.filter(
       (param) => param.key !== '' && param.checked,
@@ -47,10 +49,14 @@ export default function QueryParamsTable({
       .map((param) => `${param.key}=${param.value}`)
       .join('&');
 
-    const baseUrl = requestValue.split('?')[0];
-    const finalUrl = queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
-
-    setRequestValue(finalUrl);
+    try {
+      const url = new URL(requestValue);
+      const finalUrl =
+        url.origin +
+        url.pathname +
+        (queryParams ? '?' + queryParams : queryParams);
+      setRequestValue(finalUrl);
+    } catch {}
   }, [params, requestValue, setRequestValue]);
 
   const handleRemoveRow = useCallback(
