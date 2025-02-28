@@ -6,29 +6,24 @@ import CheckboxYes from '@/assets/icons/checkbox-yes.svg';
 import styles from '@/app/_components/components-styles/QueryParamsTable.module.css';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-
-type Param = {
-  key: string;
-  value: string;
-  checked: boolean;
-};
+import { Param } from './RequestSection';
 
 type Props = {
+  params: Param[];
+  setParams: React.Dispatch<React.SetStateAction<Param[]>>;
   requestValue: string;
   setRequestValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function QueryParamsTable({
   requestValue,
+  params,
+  setParams,
   setRequestValue,
 }: Props) {
-  const [params, setParams] = useState<Param[]>([
-    { key: '', value: '', checked: true },
-  ]);
   const [allChecked, setAllChecked] = useState(true);
   const t = useTranslations('HomePage');
 
-  // add new row
   useEffect(() => {
     const lastParam = params.at(-1);
     if (lastParam && (lastParam.key !== '' || lastParam.value !== '')) {
@@ -37,34 +32,32 @@ export default function QueryParamsTable({
         { key: '', value: '', checked: true },
       ]);
     }
-  }, [params]);
+  }, [params, setParams, requestValue]);
 
-  //  add query params
   useEffect(() => {
-    const validParams = params.filter(
-      (param) => param.key !== '' && param.checked,
-    );
+    setRequestValue((prev) => {
+      const [baseUrl] = prev.split('?');
+      const urlParams = params.length ? '?' + stringifyQueryParams(params) : '';
 
-    const queryParams = validParams
-      .map((param) => `${param.key}=${param.value}`)
+      return baseUrl + urlParams;
+    });
+  }, [params, setRequestValue]);
+
+  const stringifyQueryParams = (params: Param[]) =>
+    params
+      .filter(({ key }) => key.trim() !== '')
+      .map(
+        ({ key, value }) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
+      )
       .join('&');
-
-    try {
-      const url = new URL(requestValue);
-      const finalUrl =
-        url.origin +
-        url.pathname +
-        (queryParams ? '?' + queryParams : queryParams);
-      setRequestValue(finalUrl);
-    } catch {}
-  }, [params, requestValue, setRequestValue]);
 
   const handleRemoveRow = useCallback(
     (index: number) => {
       if (params.length < 2) return;
       setParams(params.filter((_, i) => i !== index));
     },
-    [params],
+    [params, setParams],
   );
 
   const handleChange = useCallback(
@@ -79,7 +72,7 @@ export default function QueryParamsTable({
         ),
       );
     },
-    [],
+    [setParams],
   );
 
   const handleToggleAll = () => {

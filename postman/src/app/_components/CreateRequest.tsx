@@ -1,17 +1,38 @@
 import { useTranslations } from 'next-intl';
 import styles from '@/app/_components/components-styles/CreateRequest.module.css';
 import HTTP from '@/assets/icons/http.svg';
+import { Param } from './RequestSection';
+import { ChangeEvent } from 'react';
 
 type Props = {
   requestValue: string;
   setRequestValue: React.Dispatch<React.SetStateAction<string>>;
+  setParams: React.Dispatch<React.SetStateAction<Param[]>>;
 };
 
 export default function CreateRequest({
   requestValue,
   setRequestValue,
+  setParams,
 }: Props) {
   const t = useTranslations('HomePage');
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const actualRequest = e.target.value;
+    if (actualRequest.includes('?')) {
+      setParams(parseQueryParams(actualRequest.split(/\?(.*)/)[1]));
+    }
+    setRequestValue(actualRequest);
+  };
+
+  const parseQueryParams = (query: string) => {
+    return query
+      ? query.split('&').map((param) => {
+          const [key = '', value = ''] = param.split('=');
+          return { key, value, checked: true };
+        })
+      : [{ key: '', value: '', checked: true }];
+  };
 
   return (
     <div className={styles.request}>
@@ -63,7 +84,7 @@ export default function CreateRequest({
               name="url"
               placeholder={t('enterURL')}
               value={requestValue}
-              onChange={(e) => setRequestValue(e.target.value)}
+              onChange={(e) => handleInputChange(e)}
             />
           </div>
           <button className={styles.createRequestButton} type="submit">
