@@ -43,7 +43,9 @@ export default function QueryParamsTable({
   }, [params, setRequestValue]);
 
   const stringifyQueryParams = (params: Param[], last: string) => {
-    const filtered = params.filter(({ key }) => key.trim() !== '');
+    const filtered = params.filter(
+      ({ key, checked }) => key.trim() !== '' && checked,
+    );
 
     if (last === '?' && params.length <= 1) {
       return '?';
