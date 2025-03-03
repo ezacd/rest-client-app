@@ -1,11 +1,19 @@
 .container {
   width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.queryParamsTableName {
+  font-size: 14px;
+  color: rgb(185, 185, 185);
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
   border-spacing: 0;
 }
 

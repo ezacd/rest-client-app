@@ -9,74 +9,33 @@ import { useTranslations } from 'next-intl';
 import { Param } from './RequestSection';
 
 type Props = {
-  params: Param[];
-  setParams: React.Dispatch<React.SetStateAction<Param[]>>;
-  requestValue: string;
-  setRequestValue: React.Dispatch<React.SetStateAction<string>>;
+  headersParams: Param[];
+  setHeadersParams: React.Dispatch<React.SetStateAction<Param[]>>;
 };
 
-export default function QueryParamsTable({
-  requestValue,
-  params,
-  setParams,
-  setRequestValue,
+export default function HeadersTable({
+  headersParams,
+  setHeadersParams,
 }: Props) {
   const [allChecked, setAllChecked] = useState(true);
   const t = useTranslations('HomePage');
 
   useEffect(() => {
-    const lastParam = params.at(-1);
+    const lastParam = headersParams.at(-1);
     if (lastParam && (lastParam.key !== '' || lastParam.value !== '')) {
-      setParams((prevParams) => [
+      setHeadersParams((prevParams) => [
         ...prevParams,
         { key: '', value: '', checked: true },
       ]);
     }
-  }, [params, setParams, requestValue]);
-
-  useEffect(() => {
-    setRequestValue((prev) => {
-      const last = prev[prev.length - 1];
-      const [baseUrl] = prev.split('?');
-      return baseUrl + stringifyQueryParams(params, last);
-    });
-  }, [params, setRequestValue]);
-
-  const stringifyQueryParams = (params: Param[], last: string) => {
-    const filtered = params.filter(
-      ({ key, checked }) => key.trim() !== '' && checked,
-    );
-
-    if (last === '?' && params.length <= 1) {
-      return '?';
-    }
-
-    const encodedParams = filtered.map(({ key, value }) => {
-      if (key && value) {
-        return `${key}=${value}`;
-      } else if (key) {
-        return key;
-      }
-    });
-
-    let queryString = encodedParams.join('&');
-
-    if (last === '=') {
-      queryString = queryString + '=';
-    }
-
-    if (last === '&') {
-      queryString += '&';
-    }
-    return queryString ? '?' + queryString : '';
-  };
+  }, [headersParams, setHeadersParams]);
 
   const handleRemoveRow = useCallback(
     (index: number) => {
-      if (params.length < 2) return;
-      setParams(params.filter((_, i) => i !== index));
+      if (headersParams.length < 2) return;
+      setHeadersParams(headersParams.filter((_, i) => i !== index));
     },
-    [params, setParams],
+    [headersParams, setHeadersParams],
   );
 
   const handleChange = useCallback(
@@ -85,26 +44,26 @@ export default function QueryParamsTable({
       field: 'key' | 'value' | 'checked',
       value: string | boolean,
     ) => {
-      setParams((prevParams) =>
+      setHeadersParams((prevParams) =>
         prevParams.map((param, i) =>
           i === index ? { ...param, [field]: value } : param,
         ),
       );
     },
-    [setParams],
+    [setHeadersParams],
   );
 
   const handleToggleAll = () => {
     const newChecked = !allChecked;
     setAllChecked(newChecked);
-    setParams((prevParams) =>
+    setHeadersParams((prevParams) =>
       prevParams.map((param) => ({ ...param, checked: newChecked })),
     );
   };
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.queryParamsTableName}>{t('query-params')}</h2>
+      <h2 className={styles.queryParamsTableName}>{t('headers')}</h2>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -116,7 +75,7 @@ export default function QueryParamsTable({
           </tr>
         </thead>
         <tbody>
-          {params.map((param, index) => (
+          {headersParams.map((param, index) => (
             <tr key={index} id={String(index)}>
               <td>
                 <Checkbox
