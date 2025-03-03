@@ -45,15 +45,15 @@ export default function QueryParamsTable({
   const stringifyQueryParams = (params: Param[], last: string) => {
     const filtered = params.filter(({ key }) => key.trim() !== '');
 
-    if (last === '?') {
+    if (last === '?' && params.length <= 1) {
       return '?';
     }
 
     const encodedParams = filtered.map(({ key, value }) => {
       if (key && value) {
-        return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+        return `${key}=${value}`;
       } else if (key) {
-        return encodeURIComponent(key);
+        return key;
       }
     });
 
