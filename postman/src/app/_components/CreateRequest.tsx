@@ -19,10 +19,14 @@ export default function CreateRequest({
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const actualRequest = e.target.value;
-    if (actualRequest.includes('?')) {
-      setParams(parseQueryParams(actualRequest.split(/\?(.*)/)[1]));
-    }
     setRequestValue(actualRequest);
+
+    const queryIndex = actualRequest.indexOf('?');
+    if (queryIndex !== -1) {
+      setParams(parseQueryParams(actualRequest.slice(queryIndex + 1)));
+    } else {
+      setParams([{ key: '', value: '', checked: true }]); // Если нет ?, очищаем параметры
+    }
   };
 
   const parseQueryParams = (query: string) => {

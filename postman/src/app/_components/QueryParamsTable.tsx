@@ -36,21 +36,38 @@ export default function QueryParamsTable({
 
   useEffect(() => {
     setRequestValue((prev) => {
+      const last = prev[prev.length - 1];
       const [baseUrl] = prev.split('?');
-      const urlParams = params.length ? '?' + stringifyQueryParams(params) : '';
-
-      return baseUrl + urlParams;
+      return baseUrl + stringifyQueryParams(params, last);
     });
   }, [params, setRequestValue]);
 
-  const stringifyQueryParams = (params: Param[]) =>
-    params
-      .filter(({ key }) => key.trim() !== '')
-      .map(
-        ({ key, value }) =>
-          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
-      )
-      .join('&');
+  const stringifyQueryParams = (params: Param[], last: string) => {
+    const filtered = params.filter(({ key }) => key.trim() !== '');
+
+    if (last === '?') {
+      return '?';
+    }
+
+    const encodedParams = filtered.map(({ key, value }) => {
+      if (key && value) {
+        return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+      } else if (key) {
+        return encodeURIComponent(key);
+      }
+    });
+
+    let queryString = encodedParams.join('&');
+
+    if (last === '=') {
+      queryString = queryString + '=';
+    }
+
+    if (last === '&') {
+      queryString += '&';
+    }
+    return queryString ? '?' + queryString : '';
+  };
 
   const handleRemoveRow = useCallback(
     (index: number) => {
