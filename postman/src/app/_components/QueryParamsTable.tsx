@@ -110,8 +110,8 @@ export default function QueryParamsTable({
             <th>
               <Checkbox checked={allChecked} onChange={handleToggleAll} />
             </th>
-            <th>Key</th>
-            <th>Value</th>
+            <th>{t('key')}</th>
+            <th>{t('value')}</th>
           </tr>
         </thead>
         <tbody>
