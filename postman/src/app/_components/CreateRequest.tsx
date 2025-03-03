@@ -42,9 +42,7 @@ export default function CreateRequest({
     <div className={styles.request}>
       <div className={styles.requestName}>
         <HTTP className={styles.requestNameSVG} />
-        <p className={styles.requestNameText}>
-          https://restcountries.com/v3.1/all
-        </p>
+        <p className={styles.requestNameText}>{requestValue}</p>
       </div>
       <div className={styles.requestEditor}>
         <form className={styles.createRequest}>
