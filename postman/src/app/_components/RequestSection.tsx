@@ -1,12 +1,12 @@
 'use client';
 
 import CreateRequest from './CreateRequest';
-import QueryParamsTable from './QueryParamsTable';
 import styles from '@/app/_components/components-styles/SelectTable.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import Headers from './Headers';
 import { RootState } from '../_store/store';
 import { setActiveTab } from '../_store/requestSlice';
+import ParamsTable from './ParamsTable';
+import { useTranslations } from 'next-intl';
 
 export type Param = {
   key: string;
@@ -20,7 +20,7 @@ export default function RequestSection() {
     <>
       <CreateRequest />
       <SelectTable />
-      {activeTab === 'Params' ? <QueryParamsTable /> : <Headers />}
+      {activeTab === 'Params' ? <QueryParamsTable /> : <HeadersTable />}
     </>
   );
 }
@@ -28,6 +28,7 @@ export default function RequestSection() {
 function SelectTable() {
   const activeTab = useSelector((state: RootState) => state.request.activeTab);
   const dispatch = useDispatch();
+  const t = useTranslations('HomePage');
 
   return (
     <div className={styles.selectBox}>
@@ -36,15 +37,25 @@ function SelectTable() {
           className={activeTab === 'Params' ? styles.active : ''}
           onClick={() => dispatch(setActiveTab('Params'))}
         >
-          Params
+          {t('query-params')}
         </li>
         <li
           className={activeTab === 'Headers' ? styles.active : ''}
           onClick={() => dispatch(setActiveTab('Headers'))}
         >
-          Headers
+          {t('headers')}
         </li>
       </ul>
     </div>
+  );
+}
+
+function HeadersTable() {
+  return <ParamsTable title="headers" paramType="headersParams" />;
+}
+
+function QueryParamsTable() {
+  return (
+    <ParamsTable title="query-params" paramType="params" updateRequestValue />
   );
 }

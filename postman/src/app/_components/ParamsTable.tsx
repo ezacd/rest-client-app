@@ -1,80 +1,35 @@
-'use client';
-
 import Trash from '@/assets/icons/trash.svg';
 import CheckboxNo from '@/assets/icons/checkbox-no.svg';
 import CheckboxYes from '@/assets/icons/checkbox-yes.svg';
 import styles from '@/app/_components/components-styles/QueryParamsTable.module.css';
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../_store/store';
-import { setHeadersParams } from '../_store/requestSlice';
+import { useParamsTable } from '../_hooks/useParamsTable';
 
-export default function HeadersTable() {
-  const headersParams = useSelector(
-    (state: RootState) => state.request.headersParams,
-  );
-  const dispatch = useDispatch();
-  const [allChecked, setAllChecked] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
+type ParamsTableProps = {
+  title: string;
+  paramType: 'headersParams' | 'params';
+  updateRequestValue?: boolean;
+};
+
+export default function ParamsTable({
+  title,
+  paramType,
+  updateRequestValue,
+}: ParamsTableProps) {
+  const {
+    params,
+    containerRef,
+    allChecked,
+    handleRemoveRow,
+    handleChange,
+    handleToggleAll,
+  } = useParamsTable({ paramType, updateRequestValue });
+
   const t = useTranslations('HomePage');
-
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
-  }, [headersParams]);
-
-  useEffect(() => {
-    const lastParam = headersParams.at(-1);
-    if (lastParam && (lastParam.key !== '' || lastParam.value !== '')) {
-      dispatch(
-        setHeadersParams([
-          ...headersParams,
-          { key: '', value: '', checked: true },
-        ]),
-      );
-    }
-  }, [headersParams, dispatch]);
-
-  const handleRemoveRow = useCallback(
-    (index: number) => {
-      if (headersParams.length < 2) return;
-      dispatch(setHeadersParams(headersParams.filter((_, i) => i !== index)));
-    },
-    [headersParams, dispatch],
-  );
-
-  const handleChange = useCallback(
-    (
-      index: number,
-      field: 'key' | 'value' | 'checked',
-      value: string | boolean,
-    ) => {
-      dispatch(
-        setHeadersParams(
-          headersParams.map((param, i) =>
-            i === index ? { ...param, [field]: value } : param,
-          ),
-        ),
-      );
-    },
-    [headersParams, dispatch],
-  );
-
-  const handleToggleAll = () => {
-    const newChecked = !allChecked;
-    setAllChecked(newChecked);
-    dispatch(
-      setHeadersParams(
-        headersParams.map((param) => ({ ...param, checked: newChecked })),
-      ),
-    );
-  };
 
   return (
     <div ref={containerRef} className={styles.container}>
-      <h2 className={styles.queryParamsTableName}>{t('headers')}</h2>
+      <h2 className={styles.queryParamsTableName}>{t(title)}</h2>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -86,7 +41,7 @@ export default function HeadersTable() {
           </tr>
         </thead>
         <tbody>
-          {headersParams.map((param, index) => (
+          {params.map((param, index) => (
             <tr key={index} id={String(index)}>
               <td>
                 <Checkbox
