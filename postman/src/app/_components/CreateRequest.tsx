@@ -1,31 +1,29 @@
 import { useTranslations } from 'next-intl';
 import styles from '@/app/_components/components-styles/CreateRequest.module.css';
 import HTTP from '@/assets/icons/http.svg';
-import { Param } from './RequestSection';
+import { useDispatch, useSelector } from 'react-redux';
 import { ChangeEvent } from 'react';
+import { RootState } from '../_store/store';
+import { setParams, setRequestValue } from '../_store/requestSlice';
 
-type Props = {
-  requestValue: string;
-  setRequestValue: React.Dispatch<React.SetStateAction<string>>;
-  setParams: React.Dispatch<React.SetStateAction<Param[]>>;
-};
-
-export default function CreateRequest({
-  requestValue,
-  setRequestValue,
-  setParams,
-}: Props) {
+export default function CreateRequest() {
+  const requestValue = useSelector(
+    (state: RootState) => state.request.requestValue,
+  );
+  const dispatch = useDispatch();
   const t = useTranslations('HomePage');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const actualRequest = e.target.value;
-    setRequestValue(actualRequest);
+    dispatch(setRequestValue(actualRequest));
 
     const queryIndex = actualRequest.indexOf('?');
     if (queryIndex !== -1) {
-      setParams(parseQueryParams(actualRequest.slice(queryIndex + 1)));
+      dispatch(
+        setParams(parseQueryParams(actualRequest.slice(queryIndex + 1))),
+      );
     } else {
-      setParams([{ key: '', value: '', checked: true }]); // Если нет ?, очищаем параметры
+      dispatch(setParams([{ key: '', value: '', checked: true }]));
     }
   };
 

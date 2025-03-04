@@ -6,36 +6,36 @@ import CheckboxYes from '@/assets/icons/checkbox-yes.svg';
 import styles from '@/app/_components/components-styles/QueryParamsTable.module.css';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Param } from './RequestSection';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../_store/store';
+import { setHeadersParams } from '../_store/requestSlice';
 
-type Props = {
-  headersParams: Param[];
-  setHeadersParams: React.Dispatch<React.SetStateAction<Param[]>>;
-};
-
-export default function HeadersTable({
-  headersParams,
-  setHeadersParams,
-}: Props) {
+export default function HeadersTable() {
+  const headersParams = useSelector(
+    (state: RootState) => state.request.headersParams,
+  );
+  const dispatch = useDispatch();
   const [allChecked, setAllChecked] = useState(true);
   const t = useTranslations('HomePage');
 
   useEffect(() => {
     const lastParam = headersParams.at(-1);
     if (lastParam && (lastParam.key !== '' || lastParam.value !== '')) {
-      setHeadersParams((prevParams) => [
-        ...prevParams,
-        { key: '', value: '', checked: true },
-      ]);
+      dispatch(
+        setHeadersParams([
+          ...headersParams,
+          { key: '', value: '', checked: true },
+        ]),
+      );
     }
-  }, [headersParams, setHeadersParams]);
+  }, [headersParams, dispatch]);
 
   const handleRemoveRow = useCallback(
     (index: number) => {
       if (headersParams.length < 2) return;
-      setHeadersParams(headersParams.filter((_, i) => i !== index));
+      dispatch(setHeadersParams(headersParams.filter((_, i) => i !== index)));
     },
-    [headersParams, setHeadersParams],
+    [headersParams, dispatch],
   );
 
   const handleChange = useCallback(
@@ -44,20 +44,24 @@ export default function HeadersTable({
       field: 'key' | 'value' | 'checked',
       value: string | boolean,
     ) => {
-      setHeadersParams((prevParams) =>
-        prevParams.map((param, i) =>
-          i === index ? { ...param, [field]: value } : param,
+      dispatch(
+        setHeadersParams(
+          headersParams.map((param, i) =>
+            i === index ? { ...param, [field]: value } : param,
+          ),
         ),
       );
     },
-    [setHeadersParams],
+    [headersParams, dispatch],
   );
 
   const handleToggleAll = () => {
     const newChecked = !allChecked;
     setAllChecked(newChecked);
-    setHeadersParams((prevParams) =>
-      prevParams.map((param) => ({ ...param, checked: newChecked })),
+    dispatch(
+      setHeadersParams(
+        headersParams.map((param) => ({ ...param, checked: newChecked })),
+      ),
     );
   };
 

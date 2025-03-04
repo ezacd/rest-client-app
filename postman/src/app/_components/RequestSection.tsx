@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
 import CreateRequest from './CreateRequest';
 import QueryParamsTable from './QueryParamsTable';
 import styles from '@/app/_components/components-styles/SelectTable.module.css';
-// Импортируем Headers (если его нет, нужно создать)
+import { useDispatch, useSelector } from 'react-redux';
 import Headers from './Headers';
+import { RootState } from '../_store/store';
+import { setActiveTab } from '../_store/requestSlice';
 
 export type Param = {
   key: string;
@@ -14,58 +15,32 @@ export type Param = {
 };
 
 export default function RequestSection() {
-  const [requestValue, setRequestValue] = useState('');
-  const [params, setParams] = useState<Param[]>([
-    { key: '', value: '', checked: true },
-  ]);
-  const [activeTab, setActiveTab] = useState('Params');
-  const [headersParams, setHeadersParams] = useState<Param[]>([
-    { key: '', value: '', checked: true },
-  ]);
-
+  const activeTab = useSelector((state: RootState) => state.request.activeTab);
   return (
     <>
-      <CreateRequest
-        requestValue={requestValue}
-        setRequestValue={setRequestValue}
-        setParams={setParams}
-      />
-      <SelectTable activeTab={activeTab} setActiveTab={setActiveTab} />
-      {activeTab === 'Params' ? (
-        <QueryParamsTable
-          requestValue={requestValue}
-          setRequestValue={setRequestValue}
-          params={params}
-          setParams={setParams}
-        />
-      ) : (
-        <Headers
-          headersParams={headersParams}
-          setHeadersParams={setHeadersParams}
-        />
-      )}
+      <CreateRequest />
+      <SelectTable />
+      {activeTab === 'Params' ? <QueryParamsTable /> : <Headers />}
     </>
   );
 }
 
-type SelectTableProps = {
-  activeTab: string;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-};
+function SelectTable() {
+  const activeTab = useSelector((state: RootState) => state.request.activeTab);
+  const dispatch = useDispatch();
 
-function SelectTable({ activeTab, setActiveTab }: SelectTableProps) {
   return (
     <div className={styles.selectBox}>
       <ul className={styles.selectBoxUl}>
         <li
           className={activeTab === 'Params' ? styles.active : ''}
-          onClick={() => setActiveTab('Params')}
+          onClick={() => dispatch(setActiveTab('Params'))}
         >
           Params
         </li>
         <li
           className={activeTab === 'Headers' ? styles.active : ''}
-          onClick={() => setActiveTab('Headers')}
+          onClick={() => dispatch(setActiveTab('Headers'))}
         >
           Headers
         </li>

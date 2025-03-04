@@ -7,40 +7,32 @@ import styles from '@/app/_components/components-styles/QueryParamsTable.module.
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Param } from './RequestSection';
+import { useDispatch, useSelector } from 'react-redux';
 
-type Props = {
-  params: Param[];
-  setParams: React.Dispatch<React.SetStateAction<Param[]>>;
-  requestValue: string;
-  setRequestValue: React.Dispatch<React.SetStateAction<string>>;
-};
+import { RootState } from '../_store/store';
+import { setParams, setRequestValue } from '../_store/requestSlice';
 
-export default function QueryParamsTable({
-  requestValue,
-  params,
-  setParams,
-  setRequestValue,
-}: Props) {
+export default function QueryParamsTable() {
   const [allChecked, setAllChecked] = useState(true);
+  const requestValue = useSelector(
+    (state: RootState) => state.request.requestValue,
+  );
+  const params = useSelector((state: RootState) => state.request.params);
+  const dispatch = useDispatch();
   const t = useTranslations('HomePage');
 
   useEffect(() => {
     const lastParam = params.at(-1);
     if (lastParam && (lastParam.key !== '' || lastParam.value !== '')) {
-      setParams((prevParams) => [
-        ...prevParams,
-        { key: '', value: '', checked: true },
-      ]);
+      dispatch(setParams([...params, { key: '', value: '', checked: true }]));
     }
-  }, [params, setParams, requestValue]);
+  }, [params, requestValue, dispatch]);
 
   useEffect(() => {
-    setRequestValue((prev) => {
-      const last = prev[prev.length - 1];
-      const [baseUrl] = prev.split('?');
-      return baseUrl + stringifyQueryParams(params, last);
-    });
-  }, [params, setRequestValue]);
+    const last = requestValue[requestValue.length - 1];
+    const [baseUrl] = requestValue.split('?');
+    dispatch(setRequestValue(baseUrl + stringifyQueryParams(params, last)));
+  }, [params, requestValue, dispatch]);
 
   const stringifyQueryParams = (params: Param[], last: string) => {
     const filtered = params.filter(
@@ -74,9 +66,9 @@ export default function QueryParamsTable({
   const handleRemoveRow = useCallback(
     (index: number) => {
       if (params.length < 2) return;
-      setParams(params.filter((_, i) => i !== index));
+      dispatch(setParams(params.filter((_, i) => i !== index)));
     },
-    [params, setParams],
+    [dispatch, params],
   );
 
   const handleChange = useCallback(
@@ -85,20 +77,19 @@ export default function QueryParamsTable({
       field: 'key' | 'value' | 'checked',
       value: string | boolean,
     ) => {
-      setParams((prevParams) =>
-        prevParams.map((param, i) =>
-          i === index ? { ...param, [field]: value } : param,
-        ),
+      const newParams = params.map((param, i) =>
+        i === index ? { ...param, [field]: value } : param,
       );
+      dispatch(setParams(newParams));
     },
-    [setParams],
+    [dispatch, params],
   );
 
   const handleToggleAll = () => {
     const newChecked = !allChecked;
     setAllChecked(newChecked);
-    setParams((prevParams) =>
-      prevParams.map((param) => ({ ...param, checked: newChecked })),
+    dispatch(
+      setParams(params.map((param) => ({ ...param, checked: newChecked }))),
     );
   };
 
