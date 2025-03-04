@@ -20,7 +20,13 @@ export default function RequestSection() {
     <>
       <CreateRequest />
       <SelectTable />
-      {activeTab === 'Params' ? <QueryParamsTable /> : <HeadersTable />}
+      {activeTab === 'Params' ? (
+        <QueryParamsTable />
+      ) : activeTab === 'Headers' ? (
+        <HeadersTable />
+      ) : (
+        <ViarblesTable />
+      )}
     </>
   );
 }
@@ -45,6 +51,12 @@ function SelectTable() {
         >
           {t('headers')}
         </li>
+        <li
+          className={activeTab === 'Viarbles' ? styles.active : ''}
+          onClick={() => dispatch(setActiveTab('Viarbles'))}
+        >
+          {t('viarbles')}
+        </li>
       </ul>
     </div>
   );
@@ -56,6 +68,10 @@ function HeadersTable() {
 
 function QueryParamsTable() {
   return (
-    <ParamsTable title="query-params" paramType="params" updateRequestValue />
+    <ParamsTable title="query-params" paramType="params" updateRequestParams />
   );
+}
+
+function ViarblesTable() {
+  return <ParamsTable title="viarbles" paramType="viarbles" />;
 }

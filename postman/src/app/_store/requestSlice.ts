@@ -6,12 +6,13 @@ type Param = {
   checked: boolean;
 };
 
-type ActiveTab = 'Params' | 'Headers';
+type ActiveTab = 'Params' | 'Headers' | 'Viarbles';
 
 interface RequestState {
   requestValue: string;
   params: Param[];
   headersParams: Param[];
+  viarbles: Param[];
   activeTab: ActiveTab;
 }
 
@@ -19,6 +20,7 @@ const initialState: RequestState = {
   requestValue: '',
   params: [{ key: '', value: '', checked: true }],
   headersParams: [{ key: '', value: '', checked: true }],
+  viarbles: [{ key: '', value: '', checked: true }],
   activeTab: 'Params',
 };
 
@@ -58,6 +60,9 @@ const requestSlice = createSlice({
     setActiveTab: (state, action: PayloadAction<ActiveTab>) => {
       state.activeTab = action.payload;
     },
+    setViarbles: (state, action: PayloadAction<Param[]>) => {
+      state.viarbles = action.payload;
+    },
   },
 });
 
@@ -68,5 +73,6 @@ export const {
   setHeadersParams,
   updateHeadersParams,
   setActiveTab,
+  setViarbles,
 } = requestSlice.actions;
 export default requestSlice.reducer;

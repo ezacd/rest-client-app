@@ -7,14 +7,15 @@ import { useParamsTable } from '../_hooks/useParamsTable';
 
 type ParamsTableProps = {
   title: string;
-  paramType: 'headersParams' | 'params';
-  updateRequestValue?: boolean;
+  paramType: 'headersParams' | 'params' | 'viarbles';
+  updateRequestParams?: boolean;
+  updateBaseRequest?: boolean;
 };
 
 export default function ParamsTable({
   title,
   paramType,
-  updateRequestValue,
+  updateRequestParams,
 }: ParamsTableProps) {
   const {
     params,
@@ -23,7 +24,7 @@ export default function ParamsTable({
     handleRemoveRow,
     handleChange,
     handleToggleAll,
-  } = useParamsTable({ paramType, updateRequestValue });
+  } = useParamsTable({ paramType, updateRequestParams });
 
   const t = useTranslations('HomePage');
 
