@@ -4,7 +4,7 @@ import Trash from '@/assets/icons/trash.svg';
 import CheckboxNo from '@/assets/icons/checkbox-no.svg';
 import CheckboxYes from '@/assets/icons/checkbox-yes.svg';
 import styles from '@/app/_components/components-styles/QueryParamsTable.module.css';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Param } from './RequestSection';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,7 +19,14 @@ export default function QueryParamsTable() {
   );
   const params = useSelector((state: RootState) => state.request.params);
   const dispatch = useDispatch();
+  const containerRef = useRef<HTMLDivElement>(null);
   const t = useTranslations('HomePage');
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [params]);
 
   useEffect(() => {
     const lastParam = params.at(-1);
@@ -94,7 +101,7 @@ export default function QueryParamsTable() {
   };
 
   return (
-    <div className={styles.container}>
+    <div ref={containerRef} className={styles.container}>
       <h2 className={styles.queryParamsTableName}>{t('query-params')}</h2>
       <table className={styles.table}>
         <thead>
