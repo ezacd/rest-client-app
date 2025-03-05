@@ -64,9 +64,6 @@ export function useParamsTable({
     }
   }, [params, dispatch, updateRequestParams, requestValue]);
 
-  //  set viarbles
-  // useEffect(() => {});
-
   //  transformation json to string
   const stringifyQueryParams = (params: Param[], last: string) => {
     const filtered = params.filter(
@@ -131,10 +128,19 @@ export function useParamsTable({
   const handleToggleAll = () => {
     const newChecked = !allChecked;
     setAllChecked(newChecked);
+
+    let updateAction;
+
+    if (paramType === 'headersParams') {
+      updateAction = setHeadersParams;
+    } else if (paramType === 'params') {
+      updateAction = setParams;
+    } else {
+      updateAction = setViarbles;
+    }
+
     dispatch(
-      (paramType === 'headersParams' ? setHeadersParams : setParams)(
-        params.map((param) => ({ ...param, checked: newChecked })),
-      ),
+      updateAction(params.map((param) => ({ ...param, checked: newChecked }))),
     );
   };
 
