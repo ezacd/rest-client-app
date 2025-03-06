@@ -7,6 +7,7 @@ import { RootState } from '../_store/store';
 import { setActiveTab } from '../_store/requestSlice';
 import ParamsTable from './ParamsTable';
 import { useTranslations } from 'next-intl';
+import ResponseSection from './ResponseSection';
 
 export type Param = {
   key: string;
@@ -29,6 +30,7 @@ export default function RequestSection() {
       <CreateRequest />
       <SelectTable />
       {tabComponents[activeTab] || <ViarblesTable />}
+      <ResponseSection />
     </>
   );
 }

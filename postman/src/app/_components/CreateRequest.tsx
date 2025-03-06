@@ -22,7 +22,6 @@ export default function CreateRequest() {
     (state: RootState) => state.request.requestValue,
   );
   const body = useSelector((state: RootState) => state.request.body);
-  const response = useSelector((state: RootState) => state.request.response);
 
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue } = useForm<DataType>();
