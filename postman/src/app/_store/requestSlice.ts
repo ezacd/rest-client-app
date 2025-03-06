@@ -7,6 +7,11 @@ type Param = {
 };
 
 type ActiveTab = 'Params' | 'Headers' | 'Viarbles' | 'Body';
+type ResponseType = {
+  data: Record<string, string>;
+  status: number;
+  statusText: string;
+};
 
 interface RequestState {
   requestValue: string;
@@ -15,6 +20,7 @@ interface RequestState {
   viarbles: Param[];
   activeTab: ActiveTab;
   body: Param[];
+  response: ResponseType;
 }
 
 const initialState: RequestState = {
@@ -24,6 +30,7 @@ const initialState: RequestState = {
   viarbles: [{ key: '', value: '', checked: true }],
   activeTab: 'Params',
   body: [{ key: '', value: '', checked: true }],
+  response: { data: {}, status: 0, statusText: '' },
 };
 
 const requestSlice = createSlice({
@@ -68,6 +75,9 @@ const requestSlice = createSlice({
     setBody: (state, action: PayloadAction<Param[]>) => {
       state.body = action.payload;
     },
+    setResponse: (state, action: PayloadAction<ResponseType>) => {
+      state.response = action.payload;
+    },
   },
 });
 
@@ -80,5 +90,6 @@ export const {
   setActiveTab,
   setViarbles,
   setBody,
+  setResponse,
 } = requestSlice.actions;
 export default requestSlice.reducer;

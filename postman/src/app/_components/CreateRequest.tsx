@@ -3,7 +3,11 @@ import HTTP from '@/assets/icons/http.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangeEvent, useEffect } from 'react';
 import { RootState } from '../_store/store';
-import { setParams, setRequestValue } from '../_store/requestSlice';
+import {
+  setParams,
+  setRequestValue,
+  setResponse,
+} from '../_store/requestSlice';
 import { useForm } from 'react-hook-form';
 import styles from '@/app/_components/components-styles/CreateRequest.module.css';
 import { sendData } from '@/services/api';
@@ -18,6 +22,7 @@ export default function CreateRequest() {
     (state: RootState) => state.request.requestValue,
   );
   const body = useSelector((state: RootState) => state.request.body);
+  const response = useSelector((state: RootState) => state.request.response);
 
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue } = useForm<DataType>();
@@ -46,12 +51,19 @@ export default function CreateRequest() {
       : [{ key: '', value: '', checked: true }];
   };
 
-  const submitData = (data: DataType) => {
+  const submitData = async (data: DataType) => {
     const filteredBody = body.filter((item) => item.key && item.checked);
     const resBody = Object.fromEntries(
       filteredBody.map(({ key, value }) => [key, value]),
     );
-    sendData(data, resBody);
+    const res = await sendData(data, resBody);
+    dispatch(
+      setResponse({
+        data: res.data,
+        status: res.status,
+        statusText: res.statusText,
+      }),
+    );
   };
 
   useEffect(() => {
