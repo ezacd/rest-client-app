@@ -6,11 +6,12 @@ import {
   setHeadersParams,
   setRequestValue,
   setViarbles,
+  setBody,
 } from '../_store/requestSlice';
 import { Param } from '../_components/RequestSection';
 
 type UseParamsTableProps = {
-  paramType: 'headersParams' | 'params' | 'viarbles';
+  paramType: 'headersParams' | 'params' | 'viarbles' | 'body';
   updateRequestParams?: boolean;
 };
 
@@ -44,8 +45,10 @@ export function useParamsTable({
         updateAction = setHeadersParams;
       } else if (paramType === 'viarbles') {
         updateAction = setViarbles;
-      } else {
+      } else if (paramType === 'params') {
         updateAction = setParams;
+      } else {
+        updateAction = setBody;
       }
 
       dispatch(
@@ -91,8 +94,10 @@ export function useParamsTable({
         updateAction = setHeadersParams;
       } else if (paramType === 'viarbles') {
         updateAction = setViarbles;
-      } else {
+      } else if (paramType === 'params') {
         updateAction = setParams;
+      } else {
+        updateAction = setBody;
       }
 
       dispatch(updateAction(params.filter((_, i) => i !== index)));
@@ -110,10 +115,12 @@ export function useParamsTable({
 
       if (paramType === 'headersParams') {
         updateAction = setHeadersParams;
+      } else if (paramType === 'viarbles') {
+        updateAction = setViarbles;
       } else if (paramType === 'params') {
         updateAction = setParams;
       } else {
-        updateAction = setViarbles;
+        updateAction = setBody;
       }
 
       const updatedParams = params.map((param, i) =>
@@ -133,10 +140,12 @@ export function useParamsTable({
 
     if (paramType === 'headersParams') {
       updateAction = setHeadersParams;
+    } else if (paramType === 'viarbles') {
+      updateAction = setViarbles;
     } else if (paramType === 'params') {
       updateAction = setParams;
     } else {
-      updateAction = setViarbles;
+      updateAction = setBody;
     }
 
     dispatch(

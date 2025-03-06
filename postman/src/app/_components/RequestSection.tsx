@@ -16,17 +16,19 @@ export type Param = {
 
 export default function RequestSection() {
   const activeTab = useSelector((state: RootState) => state.request.activeTab);
+
+  const tabComponents = {
+    Params: <QueryParamsTable />,
+    Headers: <HeadersTable />,
+    Body: <BodyTable />,
+    Viarbles: <ViarblesTable />,
+  };
+
   return (
     <>
       <CreateRequest />
       <SelectTable />
-      {activeTab === 'Params' ? (
-        <QueryParamsTable />
-      ) : activeTab === 'Headers' ? (
-        <HeadersTable />
-      ) : (
-        <ViarblesTable />
-      )}
+      {tabComponents[activeTab] || <ViarblesTable />}
     </>
   );
 }
@@ -57,6 +59,12 @@ function SelectTable() {
         >
           {t('viarbles')}
         </li>
+        <li
+          className={activeTab === 'Body' ? styles.active : ''}
+          onClick={() => dispatch(setActiveTab('Body'))}
+        >
+          {t('body')}
+        </li>
       </ul>
     </div>
   );
@@ -74,4 +82,8 @@ function QueryParamsTable() {
 
 function ViarblesTable() {
   return <ParamsTable title="viarbles" paramType="viarbles" />;
+}
+
+function BodyTable() {
+  return <ParamsTable title="body" paramType="body" />;
 }

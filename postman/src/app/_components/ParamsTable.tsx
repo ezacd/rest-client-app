@@ -7,7 +7,7 @@ import { useParamsTable } from '../_hooks/useParamsTable';
 
 type ParamsTableProps = {
   title: string;
-  paramType: 'headersParams' | 'params' | 'viarbles';
+  paramType: 'headersParams' | 'params' | 'viarbles' | 'body';
   updateRequestParams?: boolean;
   updateBaseRequest?: boolean;
 };

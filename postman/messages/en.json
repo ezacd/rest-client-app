@@ -9,6 +9,7 @@
     "key": "Key",
     "value": "Value",
     "query-params": "Query Params",
-    "headers": "Headers"
+    "headers": "Headers",
+    "body": "Body"
   }
 }
