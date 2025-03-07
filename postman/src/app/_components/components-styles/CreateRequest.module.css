@@ -92,6 +92,17 @@
   width: 120px;
 }
 
+.createDisabledRequestButton {
+  background-color: rgb(69, 80, 98);
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 120px;
+}
+
 .createRequestButton:hover {
   background-color: rgb(40, 84, 165);
 }

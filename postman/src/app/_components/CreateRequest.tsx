@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import HTTP from '@/assets/icons/http.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { RootState } from '../_store/store';
 import {
   setParams,
@@ -25,6 +25,7 @@ export default function CreateRequest() {
 
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue } = useForm<DataType>();
+  const [isValid, setIsValid] = useState(false);
   const t = useTranslations('HomePage');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -85,6 +86,13 @@ export default function CreateRequest() {
 
   useEffect(() => {
     setValue('url', requestValue);
+
+    try {
+      new URL(requestValue);
+      setIsValid(true);
+    } catch {
+      setIsValid(false);
+    }
   }, [requestValue, setValue]);
 
   return (
@@ -141,7 +149,15 @@ export default function CreateRequest() {
               onChange={(e) => handleInputChange(e)}
             />
           </div>
-          <button className={styles.createRequestButton} type="submit">
+          <button
+            className={
+              isValid
+                ? styles.createRequestButton
+                : styles.createDisabledRequestButton
+            }
+            type="submit"
+            disabled={!isValid}
+          >
             {t('send')}
           </button>
         </form>
