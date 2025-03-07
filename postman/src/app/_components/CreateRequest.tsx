@@ -55,12 +55,30 @@ export default function CreateRequest() {
     const resBody = Object.fromEntries(
       filteredBody.map(({ key, value }) => [key, value]),
     );
-    const res = await sendData(data, resBody);
+
+    const startTime = performance.now();
+    const res = await sendData(data, resBody).catch((error) => error.response);
+    const endTime = performance.now();
+
+    const timeTaken = (endTime - startTime).toFixed(2);
+
+    const contentLength =
+      res.headers?.['content-length'] ??
+      (typeof res.headers?.get === 'function'
+        ? res.headers.get('content-length')
+        : undefined);
+
+    const contentLengthKB = contentLength
+      ? (Number(contentLength) / 1024).toFixed(2) + ' KB'
+      : 'Unknown';
+
     dispatch(
       setResponse({
-        data: res.data,
-        status: res.status,
-        statusText: res.statusText,
+        data: res?.data || {},
+        status: res?.status || 500,
+        statusText: res?.statusText || 'Unknown Error',
+        time: timeTaken + ' ms',
+        size: contentLengthKB,
       }),
     );
   };

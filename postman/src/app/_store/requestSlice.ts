@@ -11,6 +11,8 @@ type ResponseType = {
   data: Record<string, string>;
   status: number;
   statusText: string;
+  time: string;
+  size: string;
 };
 
 interface RequestState {
@@ -30,7 +32,7 @@ const initialState: RequestState = {
   viarbles: [{ key: '', value: '', checked: true }],
   activeTab: 'Params',
   body: [{ key: '', value: '', checked: true }],
-  response: { data: {}, status: 0, statusText: '' },
+  response: { data: {}, status: 0, statusText: '', time: '', size: '' },
 };
 
 const requestSlice = createSlice({
@@ -77,6 +79,7 @@ const requestSlice = createSlice({
     },
     setResponse: (state, action: PayloadAction<ResponseType>) => {
       state.response = action.payload;
+      console.log(state.response);
     },
   },
 });

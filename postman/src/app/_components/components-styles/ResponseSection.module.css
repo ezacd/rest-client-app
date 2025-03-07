@@ -1,9 +1,10 @@
 .responseSection {
   width: calc(100vw - 105px);
-  height: 40vh;
+  height: 100vh;
   overflow: auto;
   padding: 20px 0;
   border-top: 1px solid rgb(48, 48, 48);
+  user-select: auto;
 }
 
 .responseSection:hover::-webkit-scrollbar {
@@ -36,4 +37,52 @@
 
 .jsonFalse {
   color: red;
+}
+
+.responseContainer {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: rgb(185, 185, 185);
+  font-size: 14px;
+  user-select: none;
+}
+
+.responseList {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.status {
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.successStatus {
+  background-color: rgba(0, 128, 0, 0.2);
+  color: #4caf50;
+}
+
+.errorStatus {
+  background-color: rgba(139, 0, 0, 0.2);
+  color: #ff6b6b;
+}
+
+.copy {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s ease;
+}
+
+.copy:hover {
+  color: #fff;
 }
