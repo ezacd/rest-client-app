@@ -76,7 +76,7 @@ export default function CreateRequest() {
       setResponse({
         data: res?.data || {},
         status: res?.status || 500,
-        statusText: res?.statusText || 'Unknown Error',
+        statusText: res?.statusText || getStatusText(res.status),
         time: timeTaken + ' ms',
         size: contentLengthKB,
       }),
@@ -148,4 +148,65 @@ export default function CreateRequest() {
       </div>
     </div>
   );
+}
+
+function getStatusText(status: number) {
+  let statusText;
+
+  switch (status) {
+    case 200:
+      statusText = 'OK';
+      break;
+    case 201:
+      statusText = 'Created';
+      break;
+    case 204:
+      statusText = 'No Content';
+      break;
+    case 400:
+      statusText = 'Bad Request';
+      break;
+    case 401:
+      statusText = 'Unauthorized';
+      break;
+    case 403:
+      statusText = 'Forbidden';
+      break;
+    case 404:
+      statusText = 'Not Found';
+      break;
+    case 405:
+      statusText = 'Method Not Allowed';
+      break;
+    case 408:
+      statusText = 'Request Timeout';
+      break;
+    case 409:
+      statusText = 'Conflict';
+      break;
+    case 415:
+      statusText = 'Unsupported Media Type';
+      break;
+    case 422:
+      statusText = 'Unprocessable Entity';
+      break;
+    case 429:
+      statusText = 'Too Many Requests';
+      break;
+    case 500:
+      statusText = 'Internal Server Error';
+      break;
+    case 502:
+      statusText = 'Bad Gateway';
+      break;
+    case 503:
+      statusText = 'Service Unavailable';
+      break;
+    case 504:
+      statusText = 'Gateway Timeout';
+      break;
+    default:
+      statusText = 'Unknown Status';
+  }
+  return statusText;
 }
