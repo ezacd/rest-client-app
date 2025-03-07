@@ -58,39 +58,56 @@ export default function CreateRequest() {
     );
 
     const startTime = performance.now();
-    const res = await sendData(data, resBody).catch((error) => error.response);
-    const endTime = performance.now();
 
-    const timeTaken = (endTime - startTime).toFixed(2);
+    try {
+      const res = await sendData(data, resBody);
 
-    const contentLength =
-      res.headers?.['content-length'] ??
-      (typeof res.headers?.get === 'function'
-        ? res.headers.get('content-length')
-        : undefined);
+      const endTime = performance.now();
+      const timeTaken = (endTime - startTime).toFixed(2);
 
-    const contentLengthKB = contentLength
-      ? (Number(contentLength) / 1024).toFixed(2) + ' KB'
-      : 'Unknown';
+      const contentLength =
+        res.headers?.['content-length'] ??
+        (typeof res.headers?.get === 'function'
+          ? res.headers.get('content-length')
+          : undefined);
 
-    dispatch(
-      setResponse({
-        data: res?.data || {},
-        status: res?.status || 500,
-        statusText: res?.statusText || getStatusText(res.status),
-        time: timeTaken + ' ms',
-        size: contentLengthKB,
-      }),
-    );
+      const contentLengthKB = contentLength
+        ? (Number(contentLength) / 1024).toFixed(2) + ' KB'
+        : 'Unknown';
+
+      dispatch(
+        setResponse({
+          data: res?.data || {},
+          status: res?.status || 500,
+          statusText: res?.statusText || getStatusText(res.status),
+          time: timeTaken + ' ms',
+          size: contentLengthKB,
+        }),
+      );
+    } catch {
+      const endTime = performance.now();
+      const timeTaken = (endTime - startTime).toFixed(2);
+
+      dispatch(
+        setResponse({
+          data: {},
+          status: 500,
+          statusText: 'Internal Server Error',
+          time: timeTaken + ' ms',
+          size: 'Unknown',
+        }),
+      );
+    }
   };
 
   useEffect(() => {
     setValue('url', requestValue);
 
-    try {
-      new URL(requestValue);
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+
+    if (urlPattern.test(requestValue)) {
       setIsValid(true);
-    } catch {
+    } else {
       setIsValid(false);
     }
   }, [requestValue, setValue]);
