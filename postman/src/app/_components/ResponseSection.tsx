@@ -23,8 +23,7 @@ function JsonViewer() {
   const styleJson = (json: string) => {
     const keyRegex = /"([^"]+)":/g;
     const stringRegex = /"([^"]+)"(?=\s*[:\s,}])(?![^<]*<\/span>)/g;
-    const numberRegex = /(?<!")-?\b\d+\.\d+\b|\b\d+\b(?!")(?=\s*[^a-zA-Z])/g;
-
+    const numberRegex = /(?<!["\/.])(?:-?\b\d+\.\d+\b|\b\d+\b)(?!["\/a-zA-Z])/g;
     let styledJson = json.replace(keyRegex, (match, p1) => {
       return `<span class="${styles.jsonKey}">"${p1}":</span>`;
     });
