@@ -7,6 +7,14 @@
   user-select: auto;
 }
 
+.jsonViewer {
+  max-height: 500px;
+  overflow: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  font-size: 14px;
+}
+
 .responseSection:hover::-webkit-scrollbar {
   width: 8px;
 }

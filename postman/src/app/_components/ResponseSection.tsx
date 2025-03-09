@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../_store/store';
+import { FixedSizeList as List } from 'react-window';
 import styles from '@/app/_components/components-styles/ResponseSection.module.css';
 import Copy from '@/assets/icons/copy.svg';
 import Check from '@/assets/icons/check.svg';
@@ -12,41 +13,60 @@ export default function ResponseSection() {
   return (
     <section className={styles.responseSection}>
       <ResponseData />
-      <JsonViewer />
+      <JsonViewerMemoized />
     </section>
   );
 }
 
 function JsonViewer() {
-  const response = useSelector((state: RootState) => state.request.response);
-  const json = JSON.stringify(response.data, null, 2);
+  const responseData = useSelector(
+    (state: RootState) => state.request.response.data,
+  );
 
   const styleJson = (json: string) => {
     const keyRegex = /"([^"]+)":/g;
     const stringRegex = /"([^"]+)"(?=\s*[:\s,}])(?![^<]*<\/span>)/g;
     const numberRegex = /(?<!["\/.])(?:-?\b\d+\.\d+\b|\b\d+\b)(?!["\/a-zA-Z])/g;
-    let styledJson = json.replace(keyRegex, (match, p1) => {
-      return `<span class="${styles.jsonKey}">"${p1}":</span>`;
-    });
 
-    styledJson = styledJson.replace(stringRegex, (match, p1) => {
-      return `<span class="${styles.jsonString}">"${p1}"</span>`;
-    });
-
-    styledJson = styledJson.replace(numberRegex, (match) => {
-      return `<span class="${styles.jsonNumber}">${match}</span>`;
-    });
-
-    return styledJson;
+    return json
+      .replace(keyRegex, (match, p1) => {
+        return `<span class="${styles.jsonKey}">"${p1}":</span>`;
+      })
+      .replace(stringRegex, (match, p1) => {
+        return `<span class="${styles.jsonString}">"${p1}"</span>`;
+      })
+      .replace(numberRegex, (match) => {
+        return `<span class="${styles.jsonNumber}">${match}</span>`;
+      });
   };
 
+  const json = useMemo(
+    () => JSON.stringify(responseData, null, 2),
+    [responseData],
+  );
+  const jsonLines = useMemo(() => json.split(/\r?\n/), [json]);
+
   return (
-    <pre
-      className={styles.jsonViewer}
-      dangerouslySetInnerHTML={{ __html: styleJson(json) }}
-    />
+    <div className={styles.jsonViewer}>
+      <List
+        height={500}
+        itemCount={jsonLines.length}
+        itemSize={20}
+        width="100%"
+      >
+        {({ index, style }) => (
+          <pre
+            style={style}
+            className={styles.jsonLine}
+            dangerouslySetInnerHTML={{ __html: styleJson(jsonLines[index]) }}
+          />
+        )}
+      </List>
+    </div>
   );
 }
+
+const JsonViewerMemoized = React.memo(JsonViewer);
 
 function ResponseData() {
   const response = useSelector((state: RootState) => state.request.response);
