@@ -71,7 +71,7 @@ function ResponseData() {
     <div className={styles.responseContainer}>
       <ul className={styles.responseList}>
         <li className={`${styles.status} ${statusClass}`}>
-          {response.status} {t(response.statusText)}
+          {response.status} {t(response.statusText || 'ok')}
         </li>
         <li>{response.time}</li>
         <li>{response.size}</li>

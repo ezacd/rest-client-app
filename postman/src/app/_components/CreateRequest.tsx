@@ -64,7 +64,7 @@ export default function CreateRequest() {
       return {
         data: errorResponse?.data || {},
         status: errorResponse?.status || 500,
-        statusText: errorResponse?.statusText || 'internal_server_error',
+        statusText: errorResponse?.statusText || 'not_found',
         headers: errorResponse?.headers || {},
       };
     });
