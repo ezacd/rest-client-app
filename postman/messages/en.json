@@ -10,6 +10,24 @@
     "value": "Value",
     "query-params": "Query Params",
     "headers": "Headers",
-    "body": "Body"
+    "body": "Body",
+    "ok": "OK",
+    "created": "Created",
+    "no_content": "No Content",
+    "bad_request": "Bad Request",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "not_found": "Not Found",
+    "method_not_allowed": "Method Not Allowed",
+    "request_timeout": "Request Timeout",
+    "conflict": "Conflict",
+    "unsupported_media_type": "Unsupported Media Type",
+    "unprocessable_entity": "Unprocessable Entity",
+    "too_many_requests": "Too Many Requests",
+    "internal_server_error": "Internal Server Error",
+    "bad_gateway": "Bad Gateway",
+    "service_unavailable": "Service Unavailable",
+    "gateway_timeout": "Gateway Timeout",
+    "unknown_status": "Unknown Status"
   }
 }

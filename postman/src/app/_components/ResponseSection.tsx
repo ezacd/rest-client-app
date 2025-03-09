@@ -6,6 +6,7 @@ import { RootState } from '../_store/store';
 import styles from '@/app/_components/components-styles/ResponseSection.module.css';
 import Copy from '@/assets/icons/copy.svg';
 import Check from '@/assets/icons/check.svg';
+import { useTranslations } from 'next-intl';
 
 export default function ResponseSection() {
   return (
@@ -50,6 +51,7 @@ function JsonViewer() {
 function ResponseData() {
   const response = useSelector((state: RootState) => state.request.response);
   const [copied, setCopied] = useState(false);
+  const t = useTranslations('HomePage');
 
   const handleCopy = async () => {
     try {
@@ -69,7 +71,7 @@ function ResponseData() {
     <div className={styles.responseContainer}>
       <ul className={styles.responseList}>
         <li className={`${styles.status} ${statusClass}`}>
-          {response.status} {response.statusText || 'OK'}
+          {response.status} {t(response.statusText)}
         </li>
         <li>{response.time}</li>
         <li>{response.size}</li>

@@ -10,6 +10,24 @@
     "value": "Значение",
     "query-params": "Параметры Запроса",
     "headers": "Заголовки",
-    "body": "Тело"
+    "body": "Тело",
+    "ok": "ОК",
+    "created": "Создано",
+    "no_content": "Нет контента",
+    "bad_request": "Неверный запрос",
+    "unauthorized": "Неавторизован",
+    "forbidden": "Запрещено",
+    "not_found": "Не найдено",
+    "method_not_allowed": "Метод не разрешен",
+    "request_timeout": "Тайм-аут запроса",
+    "conflict": "Конфликт",
+    "unsupported_media_type": "Неподдерживаемый тип медиа",
+    "unprocessable_entity": "Невозможно обработать сущность",
+    "too_many_requests": "Слишком много запросов",
+    "internal_server_error": "Внутренняя ошибка сервера",
+    "bad_gateway": "Плохой шлюз",
+    "service_unavailable": "Сервис недоступен",
+    "gateway_timeout": "Тайм-аут шлюза",
+    "unknown_status": "Неизвестный статус"
   }
 }

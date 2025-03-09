@@ -59,45 +59,34 @@ export default function CreateRequest() {
 
     const startTime = performance.now();
 
-    try {
-      const res = await sendData(data, resBody);
+    const res = await sendData(data, resBody).catch((error) => {
+      const errorResponse = error?.response;
+      return {
+        data: errorResponse?.data || {},
+        status: errorResponse?.status || 500,
+        statusText: errorResponse?.statusText || 'internal_server_error',
+        headers: errorResponse?.headers || {},
+      };
+    });
 
-      const endTime = performance.now();
-      const timeTaken = (endTime - startTime).toFixed(2);
+    const endTime = performance.now();
+    const timeTaken = (endTime - startTime).toFixed(2);
 
-      const contentLength =
-        res.headers?.['content-length'] ??
-        (typeof res.headers?.get === 'function'
-          ? res.headers.get('content-length')
-          : undefined);
-
-      const contentLengthKB = contentLength
+    const contentLength = res.headers?.['content-length'] ?? 'Unknown';
+    const contentLengthKB =
+      contentLength !== 'Unknown'
         ? (Number(contentLength) / 1024).toFixed(2) + ' KB'
         : 'Unknown';
 
-      dispatch(
-        setResponse({
-          data: res?.data || {},
-          status: res?.status || 500,
-          statusText: res?.statusText || getStatusText(res.status),
-          time: timeTaken + ' ms',
-          size: contentLengthKB,
-        }),
-      );
-    } catch {
-      const endTime = performance.now();
-      const timeTaken = (endTime - startTime).toFixed(2);
-
-      dispatch(
-        setResponse({
-          data: {},
-          status: 500,
-          statusText: 'Internal Server Error',
-          time: timeTaken + ' ms',
-          size: 'Unknown',
-        }),
-      );
-    }
+    dispatch(
+      setResponse({
+        data: res?.data || {},
+        status: res?.status || 500,
+        statusText: res?.statusText || getStatusText(res.status),
+        time: timeTaken + ' ms',
+        size: contentLengthKB,
+      }),
+    );
   };
 
   useEffect(() => {
@@ -188,58 +177,58 @@ function getStatusText(status: number) {
 
   switch (status) {
     case 200:
-      statusText = 'OK';
+      statusText = 'ok';
       break;
     case 201:
-      statusText = 'Created';
+      statusText = 'created';
       break;
     case 204:
-      statusText = 'No Content';
+      statusText = 'no_content';
       break;
     case 400:
-      statusText = 'Bad Request';
+      statusText = 'bad_request';
       break;
     case 401:
-      statusText = 'Unauthorized';
+      statusText = 'unauthorized';
       break;
     case 403:
-      statusText = 'Forbidden';
+      statusText = 'forbidden';
       break;
     case 404:
-      statusText = 'Not Found';
+      statusText = 'not_found';
       break;
     case 405:
-      statusText = 'Method Not Allowed';
+      statusText = 'method_not_allowed';
       break;
     case 408:
-      statusText = 'Request Timeout';
+      statusText = 'request_timeout';
       break;
     case 409:
-      statusText = 'Conflict';
+      statusText = 'conflict';
       break;
     case 415:
-      statusText = 'Unsupported Media Type';
+      statusText = 'unsupported_media_type';
       break;
     case 422:
-      statusText = 'Unprocessable Entity';
+      statusText = 'unprocessable_entity';
       break;
     case 429:
-      statusText = 'Too Many Requests';
+      statusText = 'too_many_requests';
       break;
     case 500:
-      statusText = 'Internal Server Error';
+      statusText = 'internal_server_error';
       break;
     case 502:
-      statusText = 'Bad Gateway';
+      statusText = 'bad_gateway';
       break;
     case 503:
-      statusText = 'Service Unavailable';
+      statusText = 'service_unavailable';
       break;
     case 504:
-      statusText = 'Gateway Timeout';
+      statusText = 'gateway_timeout';
       break;
     default:
-      statusText = 'Unknown Status';
+      statusText = 'unknown_status';
   }
   return statusText;
 }
