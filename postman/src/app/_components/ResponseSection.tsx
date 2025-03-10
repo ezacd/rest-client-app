@@ -24,16 +24,16 @@ function JsonViewer() {
   );
 
   const styleJson = (json: string) => {
-    const keyRegex = /"([^"]+)":/g;
-    const stringRegex = /"([^"]+)"(?=\s*[:\s,}])(?![^<]*<\/span>)/g;
-    const numberRegex = /(?<!["\/.])(?:-?\b\d+\.\d+\b|\b\d+\b)(?!["\/a-zA-Z])/g;
+    const keyRegex = /"([^"]+)"\s*:/g;
+    const stringRegex = /:\s*"([^"]*)"|(?<=\[)([^"]+)(?=\])/g;
+    const numberRegex = /(?<!["])\b\d+(\.\d+)?\b(?!["])/g;
 
     return json
-      .replace(keyRegex, (match, p1) => {
-        return `<span class="${styles.jsonKey}">"${p1}":</span>`;
-      })
       .replace(stringRegex, (match, p1) => {
-        return `<span class="${styles.jsonString}">"${p1}"</span>`;
+        return `: <span class="${styles.jsonString}">"${p1}"</span>`;
+      })
+      .replace(keyRegex, (match, p1) => {
+        return `<span class="${styles.jsonKey}">"${p1}"</span>:`;
       })
       .replace(numberRegex, (match) => {
         return `<span class="${styles.jsonNumber}">${match}</span>`;
