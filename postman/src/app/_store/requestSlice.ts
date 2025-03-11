@@ -19,7 +19,7 @@ interface RequestState {
   requestValue: string;
   params: Param[];
   headersParams: Param[];
-  viarbles: Param[];
+  variables: Param[];
   activeTab: ActiveTab;
   body: Param[];
   response: ResponseType;
@@ -29,7 +29,7 @@ const initialState: RequestState = {
   requestValue: '',
   params: [{ key: '', value: '', checked: true }],
   headersParams: [{ key: '', value: '', checked: true }],
-  viarbles: [{ key: '', value: '', checked: true }],
+  variables: [{ key: '', value: '', checked: true }],
   activeTab: 'Params',
   body: [{ key: '', value: '', checked: true }],
   response: { data: {}, status: 0, statusText: '', time: '', size: '' },
@@ -71,8 +71,8 @@ const requestSlice = createSlice({
     setActiveTab: (state, action: PayloadAction<ActiveTab>) => {
       state.activeTab = action.payload;
     },
-    setViarbles: (state, action: PayloadAction<Param[]>) => {
-      state.viarbles = action.payload;
+    setVariables: (state, action: PayloadAction<Param[]>) => {
+      state.variables = action.payload;
     },
     setBody: (state, action: PayloadAction<Param[]>) => {
       state.body = action.payload;
@@ -90,7 +90,7 @@ export const {
   setHeadersParams,
   updateHeadersParams,
   setActiveTab,
-  setViarbles,
+  setVariables,
   setBody,
   setResponse,
 } = requestSlice.actions;

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import HTTP from '@/assets/icons/http.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { RootState } from '../_store/store';
 import {
   setParams,
@@ -24,6 +24,14 @@ export default function CreateRequest() {
   const body = useSelector((state: RootState) => state.request.body);
   const headersParams = useSelector(
     (state: RootState) => state.request.headersParams,
+  );
+  const variablesParams = useSelector(
+    (state: RootState) => state.request.variables,
+  );
+  const variables = Object.fromEntries(
+    variablesParams
+      .filter(({ key, checked }) => key && checked)
+      .map(({ key, value }) => [key, value]),
   );
 
   const headers = Object.fromEntries(
@@ -67,7 +75,9 @@ export default function CreateRequest() {
 
     const startTime = performance.now();
 
-    const res = await sendData(data, resBody, headers).catch((error) => {
+    const resData = { url: getInputText(), http_method: data.http_method };
+
+    const res = await sendData(resData, resBody, headers).catch((error) => {
       const errorResponse = error?.response;
 
       return {
@@ -98,17 +108,42 @@ export default function CreateRequest() {
     );
   };
 
+  const getInputText = useCallback(() => {
+    let inputText = requestValue;
+    const [baseUrl] = inputText.split('?');
+    let detectedViarbles;
+
+    if (baseUrl.includes('{{') && baseUrl.includes('}}')) {
+      const matches = inputText.match(/{{(.*?)}}/g);
+      detectedViarbles = matches
+        ? matches.map((match) => match.slice(2, -2).trim())
+        : [];
+    }
+
+    detectedViarbles?.forEach((variable) => {
+      const variablePattern = new RegExp(`{{${variable}}}`, 'g');
+      if (variables[variable]) {
+        inputText = inputText.replace(variablePattern, variables[variable]);
+      } else {
+        inputText = inputText;
+      }
+    });
+
+    return inputText;
+  }, [requestValue, variables]);
+
   useEffect(() => {
     setValue('url', requestValue);
+    const inputText = getInputText();
 
     const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
 
-    if (urlPattern.test(requestValue)) {
+    if (urlPattern.test(inputText)) {
       setIsValid(true);
     } else {
       setIsValid(false);
     }
-  }, [requestValue, setValue]);
+  }, [requestValue, setValue, getInputText]);
 
   return (
     <div className={styles.request}>

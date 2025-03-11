@@ -59,7 +59,7 @@ function SelectTable() {
           className={activeTab === 'Viarbles' ? styles.active : ''}
           onClick={() => dispatch(setActiveTab('Viarbles'))}
         >
-          {t('viarbles')}
+          {t('variables')}
         </li>
         <li
           className={activeTab === 'Body' ? styles.active : ''}
@@ -83,7 +83,7 @@ function QueryParamsTable() {
 }
 
 function ViarblesTable() {
-  return <ParamsTable title="viarbles" paramType="viarbles" />;
+  return <ParamsTable title="variables" paramType="variables" />;
 }
 
 function BodyTable() {
