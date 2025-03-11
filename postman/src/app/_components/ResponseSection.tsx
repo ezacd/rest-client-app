@@ -26,7 +26,7 @@ function JsonViewer() {
   const styleJson = (json: string) => {
     const keyRegex = /"([^"]+)"\s*:/g;
     const stringRegex = /:\s*"([^"]*)"|(?<=\[)([^"]+)(?=\])/g;
-    const numberRegex = /(?<!["])\b\d+(\.\d+)?\b(?!["])/g;
+    const numberRegex = /(?<![\d/"\s])\b\d+(\.\d+)?\b(?![\d"\/\s])/g;
 
     return json
       .replace(stringRegex, (match, p1) => {
