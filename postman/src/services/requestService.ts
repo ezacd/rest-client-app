@@ -4,7 +4,6 @@ type Param = { [k: string]: string };
 type Headers = Record<string, string>;
 
 export const getData = async (url: string, headers: Headers) => {
-  console.log(headers);
   return apiClient.get(url, { headers });
 };
 
