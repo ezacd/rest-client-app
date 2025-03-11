@@ -79,7 +79,6 @@ const requestSlice = createSlice({
     },
     setResponse: (state, action: PayloadAction<ResponseType>) => {
       state.response = action.payload;
-      console.log(state.response);
     },
   },
 });

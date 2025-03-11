@@ -21,22 +21,26 @@ type DataType = {
   url: string;
 };
 
-export async function sendData(data: DataType, body: { [k: string]: string }) {
+export async function sendData(
+  data: DataType,
+  body: { [k: string]: string },
+  headers: Record<string, string>,
+) {
   switch (data.http_method) {
     case 'GET':
-      return getData(data.url);
+      return getData(data.url, headers);
     case 'POST':
-      return postData(data.url, body);
+      return postData(data.url, body, headers);
     case 'PUT':
-      return putData(data.url, body);
+      return putData(data.url, body, headers);
     case 'DELETE':
-      return deleteData(data.url);
+      return deleteData(data.url, headers);
     case 'PATCH':
-      return patchData(data.url, body);
+      return patchData(data.url, body, headers);
     case 'HEAD':
-      return headData(data.url);
+      return headData(data.url, headers);
     case 'OPTIONS':
-      return optionsData(data.url);
+      return optionsData(data.url, headers);
     default:
       throw new Error(`Unsupported HTTP method: ${data.http_method}`);
   }

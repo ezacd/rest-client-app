@@ -2,37 +2,52 @@ import apiClient from './api';
 
 type Param = { [k: string]: string };
 
-export const getData = async (url: string) => {
-  const response = await apiClient.get(url);
-  return response;
+export const getData = async (url: string, headers: Record<string, string>) => {
+  console.log(headers);
+  return apiClient.get(url, { headers });
 };
 
-export const postData = async (url: string, data: Param) => {
-  const response = await apiClient.post(url, data);
-  return response;
+export const postData = async (
+  url: string,
+  data: Param,
+  headers: Record<string, string>,
+) => {
+  return apiClient.post(url, data, { headers });
 };
 
-export const putData = async (url: string, data: Param) => {
-  const response = await apiClient.put(url, data);
-  return response;
+export const putData = async (
+  url: string,
+  data: Param,
+  headers: Record<string, string>,
+) => {
+  return apiClient.put(url, data, { headers });
 };
 
-export const deleteData = async (url: string) => {
-  const response = await apiClient.delete(url);
-  return response;
+export const deleteData = async (
+  url: string,
+  headers: Record<string, string>,
+) => {
+  return apiClient.delete(url, { headers });
 };
 
-export const patchData = async (url: string, data: Param) => {
-  const response = await apiClient.patch(url, data);
-  return response;
+export const patchData = async (
+  url: string,
+  data: Param,
+  headers: Record<string, string>,
+) => {
+  return apiClient.patch(url, data, { headers });
 };
 
-export const headData = async (url: string) => {
-  const response = await apiClient.head(url);
-  return response;
+export const headData = async (
+  url: string,
+  headers: Record<string, string>,
+) => {
+  return apiClient.head(url, { headers });
 };
 
-export const optionsData = async (url: string) => {
-  const response = await apiClient.options(url);
-  return response;
+export const optionsData = async (
+  url: string,
+  headers: Record<string, string>,
+) => {
+  return apiClient.options(url, { headers });
 };

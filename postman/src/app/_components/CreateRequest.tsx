@@ -22,7 +22,15 @@ export default function CreateRequest() {
     (state: RootState) => state.request.requestValue,
   );
   const body = useSelector((state: RootState) => state.request.body);
+  const headersParams = useSelector(
+    (state: RootState) => state.request.headersParams,
+  );
 
+  const headers = Object.fromEntries(
+    headersParams
+      .filter(({ key, checked }) => key && checked)
+      .map(({ key, value }) => [key, value]),
+  );
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue } = useForm<DataType>();
   const [isValid, setIsValid] = useState(false);
@@ -59,8 +67,9 @@ export default function CreateRequest() {
 
     const startTime = performance.now();
 
-    const res = await sendData(data, resBody).catch((error) => {
+    const res = await sendData(data, resBody, headers).catch((error) => {
       const errorResponse = error?.response;
+
       return {
         data: errorResponse?.data || {},
         status: errorResponse?.status || 500,
