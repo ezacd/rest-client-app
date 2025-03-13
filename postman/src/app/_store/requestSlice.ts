@@ -97,6 +97,7 @@ const requestSlice = createSlice({
     },
     setHistory: (state, action: PayloadAction<History[]>) => {
       state.history = action.payload;
+      localStorage.setItem('history', JSON.stringify(state.history));
     },
   },
 });
