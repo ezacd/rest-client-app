@@ -24,3 +24,31 @@
 .asideButtonsText {
   font-size: 12px;
 }
+
+.historyAsideMenuUl {
+  display: flex;
+  width: 25vw;
+}
+
+.closeSvgBox {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.closeSvgBox:hover {
+  background-color: rgb(59, 59, 59);
+}
+
+.closeSvg {
+  width: 25px;
+  height: 25px;
+}
