@@ -52,3 +52,36 @@
   width: 25px;
   height: 25px;
 }
+
+.historyH2 {
+  padding-top: 10px;
+  padding-left: 5px;
+}
+
+.historyAsideMenuUl {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+}
+
+.historyAsideMenuLi {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  padding: 15px 5px;
+  border-radius: 10px;
+}
+
+.historyAsideMenuLi:hover {
+  background-color: rgb(59, 59, 59);
+}
+
+.historyAsideMenuLiMethod {
+  font-weight: 700;
+}
