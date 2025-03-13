@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { RootState } from '../_store/store';
 import {
+  setHistory,
   setParams,
   setRequestValue,
   setResponse,
@@ -28,6 +29,7 @@ export default function CreateRequest() {
   const variablesParams = useSelector(
     (state: RootState) => state.request.variables,
   );
+  const history = useSelector((state: RootState) => state.request.history);
   const variables = Object.fromEntries(
     variablesParams
       .filter(({ key, checked }) => key && checked)
@@ -76,6 +78,13 @@ export default function CreateRequest() {
     const startTime = performance.now();
 
     const resData = { url: getInputText(), http_method: data.http_method };
+
+    dispatch(
+      setHistory([
+        ...history,
+        { request: resData, body: body, headers: headersParams },
+      ]),
+    );
 
     const res = await sendData(resData, resBody, headers).catch((error) => {
       const errorResponse = error?.response;

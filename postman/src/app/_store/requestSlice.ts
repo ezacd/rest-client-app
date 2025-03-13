@@ -7,12 +7,24 @@ type Param = {
 };
 
 type ActiveTab = 'Params' | 'Headers' | 'Viarbles' | 'Body';
+
 type ResponseType = {
   data: Record<string, string>;
   status: number;
   statusText: string;
   time: string;
   size: string;
+};
+
+type Request = {
+  http_method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
+  url: string;
+};
+
+type History = {
+  request: Request;
+  body: Param[];
+  headers: Param[];
 };
 
 interface RequestState {
@@ -23,6 +35,7 @@ interface RequestState {
   activeTab: ActiveTab;
   body: Param[];
   response: ResponseType;
+  history: History[];
 }
 
 const initialState: RequestState = {
@@ -33,6 +46,7 @@ const initialState: RequestState = {
   activeTab: 'Params',
   body: [{ key: '', value: '', checked: true }],
   response: { data: {}, status: 0, statusText: '', time: '', size: '' },
+  history: [],
 };
 
 const requestSlice = createSlice({
@@ -81,6 +95,9 @@ const requestSlice = createSlice({
     setResponse: (state, action: PayloadAction<ResponseType>) => {
       state.response = action.payload;
     },
+    setHistory: (state, action: PayloadAction<History[]>) => {
+      state.history = action.payload;
+    },
   },
 });
 
@@ -94,5 +111,6 @@ export const {
   setVariables,
   setBody,
   setResponse,
+  setHistory,
 } = requestSlice.actions;
 export default requestSlice.reducer;
