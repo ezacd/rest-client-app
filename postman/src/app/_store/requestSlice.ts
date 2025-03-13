@@ -29,7 +29,7 @@ const initialState: RequestState = {
   requestValue: '',
   params: [{ key: '', value: '', checked: true }],
   headersParams: [{ key: '', value: '', checked: true }],
-  variables: [{ key: '', value: '', checked: true }],
+  variables: JSON.parse(localStorage.getItem('viarbles') || '[]') as Param[],
   activeTab: 'Params',
   body: [{ key: '', value: '', checked: true }],
   response: { data: {}, status: 0, statusText: '', time: '', size: '' },
@@ -73,6 +73,7 @@ const requestSlice = createSlice({
     },
     setVariables: (state, action: PayloadAction<Param[]>) => {
       state.variables = action.payload;
+      localStorage.setItem('viarbles', JSON.stringify(state.variables));
     },
     setBody: (state, action: PayloadAction<Param[]>) => {
       state.body = action.payload;
