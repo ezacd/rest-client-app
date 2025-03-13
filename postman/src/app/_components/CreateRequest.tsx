@@ -9,7 +9,7 @@ import {
   setResponse,
 } from '../_store/requestSlice';
 import { useForm } from 'react-hook-form';
-import styles from '@/app/_components/components-styles/CreateRequest.module.css';
+import styles from '@/app/_components/CreateRequest.module.css';
 import { sendData } from '@/services/api';
 
 type DataType = {

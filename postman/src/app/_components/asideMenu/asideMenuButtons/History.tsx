@@ -1,0 +1,17 @@
+import HistorySvg from '@/assets/icons/history.svg';
+import styles from '@/app/_components/asideMenu/asideMenuButtons/History.module.css';
+import { useTranslations } from 'next-intl';
+
+export default function History() {
+  const t = useTranslations('HomePage');
+
+  return (
+    <>
+      {' '}
+      <button className={styles.asideButton}>
+        <HistorySvg className={styles.asideSVG} />
+        <p className={styles.asideButtonsText}>{t('history')}</p>
+      </button>
+    </>
+  );
+}

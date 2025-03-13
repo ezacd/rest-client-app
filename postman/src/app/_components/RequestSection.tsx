@@ -1,7 +1,7 @@
 'use client';
 
 import CreateRequest from './CreateRequest';
-import styles from '@/app/_components/components-styles/SelectTable.module.css';
+import styles from '@/app/_components/SelectTable.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../_store/store';
 import { setActiveTab } from '../_store/requestSlice';

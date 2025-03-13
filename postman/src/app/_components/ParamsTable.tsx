@@ -1,7 +1,7 @@
 import Trash from '@/assets/icons/trash.svg';
 import CheckboxNo from '@/assets/icons/checkbox-no.svg';
 import CheckboxYes from '@/assets/icons/checkbox-yes.svg';
-import styles from '@/app/_components/components-styles/QueryParamsTable.module.css';
+import styles from '@/app/_components/QueryParamsTable.module.css';
 import { useTranslations } from 'next-intl';
 import { useParamsTable } from '../_hooks/useParamsTable';
 
