@@ -29,7 +29,7 @@ const initialState: RequestState = {
   requestValue: '',
   params: [{ key: '', value: '', checked: true }],
   headersParams: [{ key: '', value: '', checked: true }],
-  variables: JSON.parse(localStorage.getItem('viarbles') || '[]') as Param[],
+  variables: [{ key: '', value: '', checked: true }],
   activeTab: 'Params',
   body: [{ key: '', value: '', checked: true }],
   response: { data: {}, status: 0, statusText: '', time: '', size: '' },

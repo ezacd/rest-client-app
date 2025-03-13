@@ -67,6 +67,14 @@ export function useParamsTable({
     }
   }, [params, dispatch, updateRequestParams, requestValue]);
 
+  //  add viarbles from localStorage
+  useEffect(() => {
+    const viarbles = localStorage.getItem('viarbles');
+    if (viarbles) {
+      dispatch(setVariables(JSON.parse(viarbles) as Param[]));
+    }
+  }, [dispatch]);
+
   //  transformation json to string
   const stringifyQueryParams = (params: Param[], last: string) => {
     const filtered = params.filter(
