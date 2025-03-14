@@ -7,12 +7,24 @@ import {
   setRequestValue,
   setVariables,
   setBody,
+  setHistory,
 } from '../_store/requestSlice';
 import { Param } from '../_components/RequestSection';
 
 type UseParamsTableProps = {
   paramType: 'headersParams' | 'params' | 'variables' | 'body';
   updateRequestParams?: boolean;
+};
+
+type Request = {
+  http_method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
+  url: string;
+};
+
+type History = {
+  request: Request;
+  body: Param[];
+  headers: Param[];
 };
 
 export function useParamsTable({
@@ -73,8 +85,12 @@ export function useParamsTable({
   //  add viarbles from localStorage
   useEffect(() => {
     const viarbles = localStorage.getItem('viarbles');
+    const history = localStorage.getItem('history');
     if (viarbles) {
       dispatch(setVariables(JSON.parse(viarbles) as Param[]));
+    }
+    if (history) {
+      dispatch(setHistory(JSON.parse(history) as History[]));
     }
   }, [dispatch]);
 
