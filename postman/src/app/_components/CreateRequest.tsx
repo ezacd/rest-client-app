@@ -42,13 +42,18 @@ export default function CreateRequest() {
       .map(({ key, value }) => [key, value]),
   );
   const dispatch = useDispatch();
-  const { register, handleSubmit, setValue } = useForm<DataType>();
+  const { register, handleSubmit, setValue, watch } = useForm<DataType>();
   const [isValid, setIsValid] = useState(false);
   const t = useTranslations('HomePage');
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const actualRequest = e.target.value;
-    dispatch(setRequestValue(actualRequest));
+    dispatch(
+      setRequestValue({
+        url: actualRequest,
+        http_method: watch('http_method'),
+      }),
+    );
 
     const queryIndex = actualRequest.indexOf('?');
     if (queryIndex !== -1) {
@@ -118,7 +123,7 @@ export default function CreateRequest() {
   };
 
   const getInputText = useCallback(() => {
-    let inputText = requestValue;
+    let inputText = requestValue.url;
     const [baseUrl] = inputText.split('?');
     let detectedViarbles;
 
@@ -142,7 +147,7 @@ export default function CreateRequest() {
   }, [requestValue, variables]);
 
   useEffect(() => {
-    setValue('url', requestValue);
+    setValue('url', requestValue.url);
     const inputText = getInputText();
 
     const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
@@ -154,11 +159,19 @@ export default function CreateRequest() {
     }
   }, [requestValue, setValue, getInputText]);
 
+  const handleMethodChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(
+      setRequestValue({
+        http_method: e.target.value as DataType['http_method'],
+      }),
+    );
+  };
+
   return (
     <div className={styles.request}>
       <div className={styles.requestName}>
         <HTTP className={styles.requestNameSVG} />
-        <p className={styles.requestNameText}>{requestValue}</p>
+        <p className={styles.requestNameText}>{requestValue.url}</p>
       </div>
       <div className={styles.requestEditor}>
         <form
@@ -170,6 +183,8 @@ export default function CreateRequest() {
               className={styles.selectMethod}
               id="http-method"
               {...register('http_method')}
+              value={requestValue.http_method}
+              onChange={handleMethodChange}
             >
               <option className={styles.selectMethodOptionGet} value="GET">
                 GET
@@ -204,7 +219,7 @@ export default function CreateRequest() {
               className={styles.requestInput}
               {...register('url')}
               placeholder={t('enterURL')}
-              value={requestValue}
+              value={requestValue.url}
               onChange={(e) => handleInputChange(e)}
             />
           </div>

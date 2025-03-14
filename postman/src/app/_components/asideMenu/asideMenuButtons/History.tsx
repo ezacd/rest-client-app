@@ -2,8 +2,13 @@ import HistorySvg from '@/assets/icons/history.svg';
 import styles from '@/app/_components/asideMenu/asideMenuButtons/History.module.css';
 import { useTranslations } from 'next-intl';
 import CloseSvg from '@/assets/icons/close.svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/_store/store';
+import {
+  setBody,
+  setHeadersParams,
+  setRequestValue,
+} from '@/app/_store/requestSlice';
 
 type BurgerMenuState = {
   isOpen: boolean;
@@ -41,21 +46,37 @@ export default function History({ burgerMenu, setBurgerMenu }: HistoryProps) {
 
 export function HistoryAsideMenu({ setBurgerMenu }: setHistoryProps) {
   const history = useSelector((state: RootState) => state.request.history);
+  const dispatch = useDispatch();
 
-  const handleClick = () => {
+  const handleClickClose = () => {
     setBurgerMenu({ isOpen: false, menuType: 'history' });
+  };
+
+  const handleClickHistoryElement = (index: number) => {
+    const request = {
+      url: history[index].request.url,
+      http_method: history[index].request.http_method,
+    };
+    dispatch(setRequestValue(request));
+    dispatch(setBody(history[index].body));
+    dispatch(setHeadersParams(history[index].headers));
   };
 
   return (
     <div>
-      <div className={styles.closeSvgBox} onClick={handleClick}>
+      <div className={styles.closeSvgBox} onClick={handleClickClose}>
         <CloseSvg className={styles.closeSvg} />
       </div>
       <h2 className={styles.historyH2}>History</h2>
 
       <ul className={styles.historyAsideMenuUl}>
         {history.map((item, index) => (
-          <li key={index} className={styles.historyAsideMenuLi}>
+          <li
+            key={index}
+            id={String(index)}
+            className={styles.historyAsideMenuLi}
+            onClick={() => handleClickHistoryElement(index)}
+          >
             <p className={styles.historyAsideMenuLiMethod}>
               {item.request.http_method}
             </p>

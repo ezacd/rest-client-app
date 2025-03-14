@@ -28,7 +28,7 @@ type History = {
 };
 
 interface RequestState {
-  requestValue: string;
+  requestValue: Request;
   params: Param[];
   headersParams: Param[];
   variables: Param[];
@@ -39,7 +39,7 @@ interface RequestState {
 }
 
 const initialState: RequestState = {
-  requestValue: '',
+  requestValue: { url: '', http_method: 'GET' },
   params: [{ key: '', value: '', checked: true }],
   headersParams: [{ key: '', value: '', checked: true }],
   variables: [{ key: '', value: '', checked: true }],
@@ -53,8 +53,8 @@ const requestSlice = createSlice({
   name: 'request',
   initialState,
   reducers: {
-    setRequestValue: (state, action: PayloadAction<string>) => {
-      state.requestValue = action.payload;
+    setRequestValue: (state, action: PayloadAction<Partial<Request>>) => {
+      state.requestValue = { ...state.requestValue, ...action.payload };
     },
     setParams: (state, action: PayloadAction<Param[]>) => {
       state.params = action.payload;
@@ -71,16 +71,6 @@ const requestSlice = createSlice({
     },
     setHeadersParams: (state, action: PayloadAction<Param[]>) => {
       state.headersParams = action.payload;
-    },
-    updateHeadersParams: (
-      state,
-      action: PayloadAction<{ index: number; param: Param }>,
-    ) => {
-      if (state.headersParams[action.payload.index]) {
-        state.headersParams = state.headersParams.map((p, i) =>
-          i === action.payload.index ? action.payload.param : p,
-        );
-      }
     },
     setActiveTab: (state, action: PayloadAction<ActiveTab>) => {
       state.activeTab = action.payload;
@@ -107,7 +97,6 @@ export const {
   setParams,
   updateParam,
   setHeadersParams,
-  updateHeadersParams,
   setActiveTab,
   setVariables,
   setBody,

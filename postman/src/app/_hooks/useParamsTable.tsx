@@ -60,10 +60,13 @@ export function useParamsTable({
   //  set request value props
   useEffect(() => {
     if (updateRequestParams) {
-      const last = requestValue[requestValue.length - 1];
-      const [baseUrl] = requestValue.split('?');
+      const last = requestValue.url[requestValue.url.length - 1];
+      const [baseUrl] = requestValue.url.split('?');
+      const newUrl = baseUrl + stringifyQueryParams(params, last);
 
-      dispatch(setRequestValue(baseUrl + stringifyQueryParams(params, last)));
+      if (newUrl !== requestValue.url) {
+        dispatch(setRequestValue({ url: newUrl }));
+      }
     }
   }, [params, dispatch, updateRequestParams, requestValue]);
 
