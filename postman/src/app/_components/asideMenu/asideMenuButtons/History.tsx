@@ -61,16 +61,13 @@ export function HistoryAsideMenu({ setBurgerMenu }: setHistoryProps) {
     dispatch(setRequestValue(request));
     dispatch(setBody(history[index].body));
     dispatch(setHeadersParams(history[index].headers));
-    dispatch(setParams(parseQueryParams(request.url.split('?')[1])));
-  };
-
-  const parseQueryParams = (query: string) => {
-    return query
-      ? query.split('&').map((param) => {
-          const [key = '', value = ''] = param.split('=');
-          return { key, value, checked: true };
-        })
-      : [{ key: '', value: '', checked: true }];
+    dispatch(
+      setParams(
+        history[index].params
+          ? history[index].params
+          : [{ key: '', value: '', checked: true }],
+      ),
+    );
   };
 
   return (

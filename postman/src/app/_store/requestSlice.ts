@@ -23,6 +23,7 @@ type Request = {
 
 type History = {
   request: Request;
+  params: Param[];
   body: Param[];
   headers: Param[];
 };

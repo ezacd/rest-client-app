@@ -26,6 +26,7 @@ export default function CreateRequest() {
   const headersParams = useSelector(
     (state: RootState) => state.request.headersParams,
   );
+  const params = useSelector((state: RootState) => state.request.params);
   const variablesParams = useSelector(
     (state: RootState) => state.request.variables,
   );
@@ -87,7 +88,12 @@ export default function CreateRequest() {
     dispatch(
       setHistory([
         ...history,
-        { request: resData, body: body, headers: headersParams },
+        {
+          request: resData,
+          params: params,
+          body: body,
+          headers: headersParams,
+        },
       ]),
     );
 
