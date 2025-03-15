@@ -72,6 +72,17 @@ const requestSlice = createSlice({
     setHeadersParams: (state, action: PayloadAction<Param[]>) => {
       state.headersParams = action.payload;
     },
+    updateHeadersParams: (
+      state,
+      action: PayloadAction<{ index: number; param: Param }>,
+    ) => {
+      alert(123);
+      if (state.headersParams[action.payload.index]) {
+        state.headersParams = state.headersParams.map((p, i) =>
+          i === action.payload.index ? action.payload.param : p,
+        );
+      }
+    },
     setActiveTab: (state, action: PayloadAction<ActiveTab>) => {
       state.activeTab = action.payload;
     },
@@ -97,6 +108,7 @@ export const {
   setParams,
   updateParam,
   setHeadersParams,
+  updateHeadersParams,
   setActiveTab,
   setVariables,
   setBody,

@@ -146,6 +146,7 @@ export default function CreateRequest() {
     return inputText;
   }, [requestValue, variables]);
 
+  //  disable send button
   useEffect(() => {
     setValue('url', requestValue.url);
     const inputText = getInputText();
