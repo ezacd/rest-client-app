@@ -1,5 +1,6 @@
 import HistorySvg from '@/assets/icons/history.svg';
 import styles from '@/app/_components/asideMenu/asideMenuButtons/History.module.css';
+import Trash from '@/assets/icons/trash.svg';
 import { useTranslations } from 'next-intl';
 import CloseSvg from '@/assets/icons/close.svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +8,7 @@ import { RootState } from '@/app/_store/store';
 import {
   setBody,
   setHeadersParams,
+  setHistory,
   setParams,
   setRequestValue,
 } from '@/app/_store/requestSlice';
@@ -70,6 +72,11 @@ export function HistoryAsideMenu({ setBurgerMenu }: setHistoryProps) {
     );
   };
 
+  const handleDeleteClick = (deleteIndex: number) => {
+    const newHistory = history.filter((item, index) => deleteIndex !== index);
+    dispatch(setHistory(newHistory));
+  };
+
   return (
     <div>
       <div className={styles.closeSvgBox} onClick={handleClickClose}>
@@ -91,6 +98,10 @@ export function HistoryAsideMenu({ setBurgerMenu }: setHistoryProps) {
             <p className={styles.historyAsideMenuLiRequest}>
               {item.request.url}
             </p>
+            <Trash
+              className={styles.trash}
+              onClick={() => handleDeleteClick(index)}
+            />
           </li>
         ))}
       </ul>

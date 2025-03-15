@@ -67,6 +67,7 @@
 .historyAsideMenuLi {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 10px;
 
   max-width: 100%;
@@ -92,4 +93,17 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.trash {
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.historyAsideMenuLi:hover .trash {
+  opacity: 1;
+  visibility: visible;
 }
