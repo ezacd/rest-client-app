@@ -28,6 +28,7 @@
     "bad_gateway": "Bad Gateway",
     "service_unavailable": "Service Unavailable",
     "gateway_timeout": "Gateway Timeout",
-    "unknown_status": "Unknown Status"
+    "unknown_status": "Unknown Status",
+    "codeGeneration": "Code Generation"
   }
 }

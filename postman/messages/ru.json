@@ -28,6 +28,7 @@
     "bad_gateway": "Плохой шлюз",
     "service_unavailable": "Сервис недоступен",
     "gateway_timeout": "Тайм-аут шлюза",
-    "unknown_status": "Неизвестный статус"
+    "unknown_status": "Неизвестный статус",
+    "codeGeneration": "Генерация Кода"
   }
 }

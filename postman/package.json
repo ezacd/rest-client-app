@@ -12,6 +12,7 @@
     "@reduxjs/toolkit": "^2.6.0",
     "@svgr/webpack": "^8.1.0",
     "axios": "^1.8.1",
+    "httpsnippet": "^2.0.0",
     "next": "15.1.7",
     "next-intl": "^3.26.4",
     "react": "^19.0.0",
@@ -22,7 +23,9 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/httpsnippet": "^1.23.4",
     "@types/node": "^20",
+    "@types/postman-collection": "^3.5.10",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-window": "^1.8.8",
