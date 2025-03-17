@@ -50,6 +50,7 @@ export default function History({ burgerMenu, setBurgerMenu }: HistoryProps) {
 export function HistoryAsideMenu({ setBurgerMenu }: setHistoryProps) {
   const history = useSelector((state: RootState) => state.request.history);
   const dispatch = useDispatch();
+  const t = useTranslations('HomePage');
 
   const handleClickClose = () => {
     setBurgerMenu({ isOpen: false, menuType: 'history' });
@@ -82,7 +83,7 @@ export function HistoryAsideMenu({ setBurgerMenu }: setHistoryProps) {
       <div className={styles.closeSvgBox} onClick={handleClickClose}>
         <CloseSvg className={styles.closeSvg} />
       </div>
-      <h2 className={styles.historyH2}>History</h2>
+      <h2 className={styles.historyH2}>{t('history')}</h2>
 
       <ul className={styles.historyAsideMenuUl}>
         {history.map((item, index) => (
