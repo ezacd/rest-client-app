@@ -23,7 +23,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const { locale } = await params; // Разбираем locale отдельно, без деструктуризации в аргументе
+  const { locale } = await params;
 
   if (!routing.locales.includes(locale as Locale)) {
     notFound();
@@ -39,12 +39,14 @@ export default async function RootLayout({
             <h1>Postman</h1>
             <div className={styles.headerButtons}>
               <HeaderLangChange />
-              <LogOutLogo
-                className={`${styles.logoutLogo} ${styles.headerSvg}`}
-              />
+              <button className={styles.logoutBox}>
+                <LogOutLogo
+                  className={`${styles.logoutLogo} ${styles.headerSvg}`}
+                />
+              </button>
             </div>
           </header>
-          <main>{children}</main>
+          <main className={styles.main}>{children}</main>
           <footer className={styles.footer}>
             <Link href="https://github.com/ezacd" className={styles.footerLink}>
               ezacd

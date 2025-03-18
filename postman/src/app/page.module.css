@@ -1,11 +1,17 @@
+.main {
+  padding: 5px;
+}
+
 .body {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(33, 33, 33);
+  background-color: rgb(25, 27, 28);
   color: white;
-
-  display: flex;
   flex-direction: column;
+
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .header {
@@ -13,7 +19,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: rgb(38, 38, 38);
+  background-color: rgb(25, 27, 28);
+  border-bottom: 1px solid rgb(48, 48, 48);
   color: white;
 }
 
@@ -23,39 +30,31 @@
   gap: 50px;
 }
 
-.langLogo {
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
-
-  position: absolute;
-  left: 0px;
-}
-
 .logoutLogo {
   cursor: pointer;
   width: 24px;
   height: 24px;
 }
 
-.headerSvg {
-  transition: transform 0.1s ease-in-out;
+.logoutBox {
+  padding: 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
 }
 
-.headerSvg:hover {
-  transform: scale(1.2);
-}
-
-.langBox {
-  width: 51px;
-  height: 24px;
-  position: relative;
+.logoutBox:hover {
+  background-color: rgb(59, 59, 59);
 }
 
 .lang {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
+  display: flex;
+  align-items: flex-end;
 }
 
 .footer {
@@ -80,4 +79,15 @@
 .footerLink:hover {
   color: #2980b9;
   text-decoration: underline;
+}
+
+.mainSection {
+  display: flex;
+  flex-direction: row;
+}
+
+.requestsSection {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px;
 }

@@ -1,0 +1,10 @@
+.aside {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  border-right: 1px solid rgb(48, 48, 48);
+  padding: 5px;
+  height: 100vh;
+  transition: width 0.3s ease-in-out;
+  position: relative;
+}

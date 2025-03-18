@@ -1,0 +1,46 @@
+.selectBox {
+  padding-top: 10px;
+}
+
+.selectBoxUl {
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative;
+}
+
+.selectBoxUl li {
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: color 0.3s ease;
+  font-weight: 500;
+  color: rgb(185, 185, 185);
+  position: relative;
+}
+
+.selectBoxUl li::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 0;
+  height: 3px;
+  background-color: rgb(145, 62, 30);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.selectBoxUl li:hover {
+  color: white;
+}
+
+.selectBoxUl li.active {
+  color: white;
+}
+
+.selectBoxUl li.active::after {
+  width: 100%;
+  left: 0;
+}

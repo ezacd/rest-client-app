@@ -1,0 +1,100 @@
+.asideButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  background: none;
+}
+
+.asideButton:hover {
+  background-color: rgb(59, 59, 59);
+}
+
+.asideSVG {
+  width: 25px;
+  height: 25px;
+  color: white;
+}
+
+.asideButtonsText {
+  font-size: 12px;
+}
+
+.closeSvgBox {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.closeSvg {
+  width: 25px;
+  height: 25px;
+}
+
+.codeGenerationH2 {
+  padding-top: 10px;
+  padding-left: 5px;
+}
+
+.historyAsideMenuUl {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+}
+
+.codeGenerationSectionBox {
+  width: 25vw;
+  min-width: 250px;
+}
+
+.codeGenerationSection {
+  width: 100%;
+  background-color: rgb(38, 38, 38);
+  margin-top: 20px;
+  border-radius: 10px;
+
+  overflow: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  font-size: 14px;
+
+  padding: 10px;
+}
+
+.codeGenerationSectionHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.codeGenerationSectionCopy {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s ease;
+}
+
+.selectMethod {
+  padding: 0px 15px;
+  font-size: 14px;
+  color: white;
+  font-weight: 700;
+  transition: border-color 0.2s, box-shadow 0.3s;
+  min-width: 200px;
+  background-color: rgb(38, 38, 38);
+}
