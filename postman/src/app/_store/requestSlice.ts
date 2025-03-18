@@ -57,7 +57,6 @@ const requestSlice = createSlice({
   reducers: {
     setRequestValue: (state, action: PayloadAction<Partial<Request>>) => {
       state.requestValue = { ...state.requestValue, ...action.payload };
-      console.log(state.requestValue);
     },
     setParams: (state, action: PayloadAction<Param[]>) => {
       state.params = action.payload;
