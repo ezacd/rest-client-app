@@ -19,6 +19,7 @@ type UseParamsTableProps = {
 type Request = {
   http_method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
   url: string;
+  variablesUrl: string;
 };
 
 type History = {

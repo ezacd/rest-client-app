@@ -16,6 +16,7 @@ import { sendData } from '@/services/api';
 type DataType = {
   http_method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
   url: string;
+  variablesUrl: string;
 };
 
 export default function CreateRequest() {
@@ -83,7 +84,11 @@ export default function CreateRequest() {
 
     const startTime = performance.now();
 
-    const resData = { url: getInputText(), http_method: data.http_method };
+    const resData = {
+      url: getInputText(),
+      http_method: data.http_method,
+      variablesUrl: getInputText(),
+    };
 
     dispatch(
       setHistory([
@@ -151,6 +156,13 @@ export default function CreateRequest() {
 
     return inputText;
   }, [requestValue, variables]);
+
+  useEffect(() => {
+    const newInputText = getInputText();
+    if (newInputText !== requestValue.variablesUrl) {
+      dispatch(setRequestValue({ variablesUrl: newInputText }));
+    }
+  }, [getInputText, requestValue.variablesUrl, dispatch]);
 
   //  disable send button
   useEffect(() => {

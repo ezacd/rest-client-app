@@ -75,7 +75,7 @@ export function CodeGenerationAsideMenu({ setBurgerMenu }: setHistoryProps) {
     try {
       const request = {
         method: requestValue.http_method,
-        url: requestValue.url,
+        url: requestValue.variablesUrl,
         headers: headersProps.map((header) => ({
           name: header.key,
           value: header.value,
@@ -98,6 +98,7 @@ export function CodeGenerationAsideMenu({ setBurgerMenu }: setHistoryProps) {
       const snippet = new HTTPSnippet(request);
 
       let generatedCode;
+
       if (lang === 'jsXHR') {
         generatedCode = snippet.convert('javascript', 'xhr') || '';
       } else if (lang === 'jsFetch') {
@@ -107,7 +108,9 @@ export function CodeGenerationAsideMenu({ setBurgerMenu }: setHistoryProps) {
       }
 
       setCodeSnippet(generatedCode);
-    } catch {}
+    } catch {
+      setCodeSnippet('');
+    }
   }, [requestValue, headersProps, body, lang]);
 
   return (

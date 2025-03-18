@@ -19,6 +19,7 @@ type ResponseType = {
 type Request = {
   http_method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
   url: string;
+  variablesUrl: string;
 };
 
 type History = {
@@ -40,7 +41,7 @@ interface RequestState {
 }
 
 const initialState: RequestState = {
-  requestValue: { url: '', http_method: 'GET' },
+  requestValue: { url: '', http_method: 'GET', variablesUrl: '' },
   params: [{ key: '', value: '', checked: true }],
   headersParams: [{ key: '', value: '', checked: true }],
   variables: [{ key: '', value: '', checked: true }],
@@ -56,6 +57,7 @@ const requestSlice = createSlice({
   reducers: {
     setRequestValue: (state, action: PayloadAction<Partial<Request>>) => {
       state.requestValue = { ...state.requestValue, ...action.payload };
+      console.log(state.requestValue);
     },
     setParams: (state, action: PayloadAction<Param[]>) => {
       state.params = action.payload;
