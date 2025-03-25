@@ -10,6 +10,7 @@ import '../globals.css';
 import Link from 'next/link';
 import HeaderLangChange from '../_components/HeaderLangChange';
 import { Locale } from '@/i18n/request';
+import AuthProvider from '@/provider/AuthProvider';
 
 export const metadata: Metadata = {
   title: 'Postman',
@@ -46,7 +47,9 @@ export default async function RootLayout({
               </button>
             </div>
           </header>
-          <main className={styles.main}>{children}</main>
+          <main className={styles.main}>
+            <AuthProvider>{children}</AuthProvider>
+          </main>
           <footer className={styles.footer}>
             <Link href="https://github.com/ezacd" className={styles.footerLink}>
               ezacd
