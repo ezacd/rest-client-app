@@ -9,8 +9,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
 import styles from './login.module.css';
 import { validationSchema } from './validationSchemaLogin';
+import { useTranslations } from 'next-intl';
 
 export default function Login() {
+  const t = useTranslations('RegisterPage');
+
   const {
     handleSubmit,
     register,
@@ -35,13 +38,13 @@ export default function Login() {
   return (
     <div className={styles.registrationPage}>
       <div className={styles.registrationPageBox}>
-        <div className={styles.registrationText}>Log In</div>
+        <div className={styles.registrationText}>{t('login')}</div>
         <form
           className={styles.registrationForm}
           onSubmit={handleSubmit(submitForm)}
         >
           <label className={styles.registrationFormLabel}>
-            Email
+            {t('email')}
             <input
               className={styles.registrationInput}
               type="email"
@@ -52,7 +55,7 @@ export default function Login() {
             </p>
           </label>
           <label className={styles.registrationFormLabel}>
-            Password
+            {t('password')}
             <input
               className={styles.registrationInput}
               type="password"
@@ -68,14 +71,16 @@ export default function Login() {
             type="submit"
             disabled={!isValid}
           >
-            Submit
+            {t('submit')}
           </button>
         </form>
         <div className={styles.haveAccountBox}>
           <span className={styles.haveAccountText}>
-            Dont have an account?
+            {t('dont_have_an_account')}
             <Link href="register">
-              <span className={styles.haveAccountTextLink}> Login Here</span>
+              <span className={styles.haveAccountTextLink}>
+                {t('register_here')}
+              </span>
             </Link>
           </span>
         </div>

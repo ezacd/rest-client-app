@@ -8,8 +8,11 @@ import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from './validationSchemaRegister';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export default function Register() {
+  const t = useTranslations('RegisterPage');
+
   const router = useRouter();
   const {
     handleSubmit,
@@ -37,13 +40,13 @@ export default function Register() {
   return (
     <div className={styles.registrationPage}>
       <div className={styles.registrationPageBox}>
-        <div className={styles.registrationText}>Register</div>
+        <div className={styles.registrationText}>{t('register')}</div>
         <form
           className={styles.registrationForm}
           onSubmit={handleSubmit(submitForm)}
         >
           <label className={styles.registrationFormLabel}>
-            Email
+            {t('email')}
             <input
               className={styles.registrationInput}
               type="email"
@@ -54,7 +57,7 @@ export default function Register() {
             </p>
           </label>
           <label className={styles.registrationFormLabel}>
-            Password
+            {t('password')}
             <input
               className={styles.registrationInput}
               type="password"
@@ -65,7 +68,7 @@ export default function Register() {
             </p>
           </label>
           <label className={styles.registrationFormLabel}>
-            Confirm password
+            {t('confPassword')}
             <input
               className={styles.registrationInput}
               type="password"
@@ -80,14 +83,16 @@ export default function Register() {
             type="submit"
             disabled={!isValid}
           >
-            Submit
+            {t('submit')}
           </button>
         </form>
         <div className={styles.haveAccountBox}>
           <span className={styles.haveAccountText}>
-            Already have account?
+            {t('already_have_an_account')}
             <Link href="login">
-              <span className={styles.haveAccountTextLink}> Login Here</span>
+              <span className={styles.haveAccountTextLink}>
+                {t('login_here')}
+              </span>
             </Link>
           </span>
         </div>
