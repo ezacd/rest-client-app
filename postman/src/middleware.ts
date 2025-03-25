@@ -12,8 +12,9 @@ export function middleware(req: NextRequest) {
   const langPrefix = currentPath.endsWith('/ru') ? '/ru' : '/en';
 
   const isRegisterPage = /^\/(ru|en)?\/?register$/.test(currentPath);
+  const isLoginPage = /^\/(ru|en)?\/?login$/.test(currentPath);
 
-  if (!token && !isRegisterPage) {
+  if (!token && !isRegisterPage && !isLoginPage) {
     return NextResponse.redirect(new URL(`${langPrefix}/register`, req.url));
   }
 

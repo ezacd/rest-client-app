@@ -6,7 +6,8 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/services/firebase';
 import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { validationSchema } from './validationSchema';
+import { validationSchema } from './validationSchemaRegister';
+import Link from 'next/link';
 
 export default function Register() {
   const router = useRouter();
@@ -82,6 +83,14 @@ export default function Register() {
             Submit
           </button>
         </form>
+        <div className={styles.haveAccountBox}>
+          <span className={styles.haveAccountText}>
+            Already have account?
+            <Link href="login">
+              <span className={styles.haveAccountTextLink}> Login Here</span>
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   );
