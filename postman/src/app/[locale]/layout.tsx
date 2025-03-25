@@ -4,13 +4,13 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 
-import LogOutLogo from '@/assets/icons/logout.svg';
 import styles from '@/app/page.module.css';
 import '../globals.css';
 import Link from 'next/link';
 import HeaderLangChange from '../_components/HeaderLangChange';
 import { Locale } from '@/i18n/request';
 import AuthProvider from '@/provider/AuthProvider';
+import LogOut from '../_components/LogOutButton';
 
 export const metadata: Metadata = {
   title: 'Postman',
@@ -40,11 +40,7 @@ export default async function RootLayout({
             <h1>Postman</h1>
             <div className={styles.headerButtons}>
               <HeaderLangChange />
-              <button className={styles.logoutBox}>
-                <LogOutLogo
-                  className={`${styles.logoutLogo} ${styles.headerSvg}`}
-                />
-              </button>
+              <LogOut />
             </div>
           </header>
           <main className={styles.main}>
