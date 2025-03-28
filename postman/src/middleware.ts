@@ -12,9 +12,9 @@ export function middleware(req: NextRequest) {
 
   const isRegisterPage = /^\/(ru|en)?\/?register$/.test(currentPath);
   const isLoginPage = /^\/(ru|en)?\/?login$/.test(currentPath);
+  const isMainPage = /^\/(ru|en)?\/?$/.test(currentPath);
 
   const referer = req.headers.get('referer')?.split('/');
-
   let last;
 
   if (referer) {
@@ -37,7 +37,7 @@ export function middleware(req: NextRequest) {
     }
   }
 
-  if (token) {
+  if (token && !isMainPage) {
     return NextResponse.redirect(new URL(`/`, req.url));
   }
 
