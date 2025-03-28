@@ -17,8 +17,6 @@ export function middleware(req: NextRequest) {
 
   const last = referer![referer!.length - 1] || 'register';
 
-  console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-
   if (!token && !isRegisterPage && !isLoginPage) {
     const localeMatches = [...currentPath.matchAll(/\/(ru|en)/g)];
 
