@@ -1,10 +1,10 @@
 'use client';
 
 import styles from '@/app/page.module.css';
-import RequestSection from '../_components/RequestSection';
 import { Provider } from 'react-redux';
-import { store } from '../_store/store';
-import Aside from '../_components/asideMenu/AsideMenu';
+import { store } from '../../store/store';
+import Aside from '@/components/asideMenu/AsideMenu';
+import RequestSection from '@/components/RequestSection';
 
 export default function HomePage() {
   return (

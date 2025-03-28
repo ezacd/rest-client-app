@@ -1,4 +1,4 @@
-import styles from '@/app/_components/asideMenu/AsideMenu.module.css';
+import styles from '@/components/asideMenu/AsideMenu.module.css';
 import CodeGeneration, {
   CodeGenerationAsideMenu,
 } from './asideMenuButtons/CodeGeneration';

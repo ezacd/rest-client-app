@@ -2,16 +2,16 @@ import { useTranslations } from 'next-intl';
 import HTTP from '@/assets/icons/http.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { RootState } from '../_store/store';
 import {
   setHistory,
   setParams,
   setRequestValue,
   setResponse,
-} from '../_store/requestSlice';
+} from '../store/requestSlice';
 import { useForm } from 'react-hook-form';
-import styles from '@/app/_components/CreateRequest.module.css';
+import styles from '@/components/CreateRequest.module.css';
 import { sendData } from '@/services/api';
+import { RootState } from '@/store/store';
 
 type DataType = {
   http_method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
