@@ -30,5 +30,23 @@
     "gateway_timeout": "Тайм-аут шлюза",
     "unknown_status": "Неизвестный статус",
     "codeGeneration": "Генерация Кода"
+  },
+  "RegisterPage": {
+    "register": "Регистрация",
+    "email": "Email",
+    "password": "Пароль",
+    "confPassword": "Подтвердить пароль",
+    "submit": "Отправить",
+    "already_have_an_account": "Уже имеете аккаунт?",
+    "login_here": " Войдите тут",
+    "login": "Войти",
+    "dont_have_an_account": "Не имеете аккаунт?",
+    "register_here": " Зарегистрироваться Тут",
+    "invalid_email_address": "Не валидный email",
+    "email_is_required": "Email занят",
+    "password_must": "Пароль должен содержать не менее 8 символов, включая: 1 цифру, 1 заглавную букву, 1 строчную букву и 1 специальный символ",
+    "password_is_required": "Пароль занят",
+    "passwords_must_match": "Пароли должны совпадать",
+    "confirm_password_is_required": "Требуется подтверждение пароля"
   }
 }

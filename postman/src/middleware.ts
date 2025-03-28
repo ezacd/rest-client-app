@@ -1,8 +1,49 @@
 import createMiddleware from 'next-intl/middleware';
+import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
 
-export default createMiddleware(routing);
+const intlMiddleware = createMiddleware(routing);
+
+export function middleware(req: NextRequest) {
+  const response = intlMiddleware(req);
+
+  const token = req.cookies.get('token')?.value;
+  const currentPath = req.nextUrl.pathname;
+
+  const isRegisterPage = /^\/(ru|en)?\/?register$/.test(currentPath);
+  const isLoginPage = /^\/(ru|en)?\/?login$/.test(currentPath);
+  const isMainPage = /^\/(ru|en)?\/?$/.test(currentPath);
+
+  const referer = req.headers.get('referer')?.split('/');
+  let last;
+
+  if (referer) {
+    last = referer[referer.length - 1];
+  } else {
+    last = 'register';
+  }
+
+  if (!token && !isRegisterPage && !isLoginPage) {
+    const localeMatches = [...currentPath.matchAll(/\/(ru|en)/g)];
+
+    const lang = localeMatches.length
+      ? localeMatches[localeMatches.length - 1][1]
+      : 'en';
+
+    if (last === 'register') {
+      return NextResponse.redirect(new URL(`/${lang}/register`, req.url));
+    } else {
+      return NextResponse.redirect(new URL(`/${lang}/login`, req.url));
+    }
+  }
+
+  if (token && !isMainPage) {
+    return NextResponse.redirect(new URL(`/`, req.url));
+  }
+
+  return response;
+}
 
 export const config = {
-  matcher: ['/', '/(ru|en)/:path*'],
+  matcher: ['/', '/register', '/(ru|en)/:path*'],
 };

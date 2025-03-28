@@ -30,5 +30,23 @@
     "gateway_timeout": "Gateway Timeout",
     "unknown_status": "Unknown Status",
     "codeGeneration": "Code Generation"
+  },
+  "RegisterPage": {
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confPassword": "Confirm password",
+    "submit": "Submit",
+    "already_have_an_account": "Already have an account?",
+    "login_here": " Login Here",
+    "login": "Log In",
+    "dont_have_an_account": "Dont have an account?",
+    "register_here": " Register Here",
+    "invalid_email_address": "Invalid email address",
+    "email_is_required": "Email is required",
+    "password_must": "Password must contain at least 8 characters, including: 1 digit, 1 uppercase letter, 1 lowercase letter, and 1 special character",
+    "password_is_required": "Password is required",
+    "passwords_must_match": "Passwords must match",
+    "confirm_password_is_required": "Confirm Password is required"
   }
 }
