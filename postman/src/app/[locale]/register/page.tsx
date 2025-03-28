@@ -53,7 +53,7 @@ export default function Register() {
               {...register('email', { required: true })}
             />
             <p className={styles.registrationFormError}>
-              {errors.email?.message}
+              {errors.email ? t(errors.email?.message) : ''}
             </p>
           </label>
           <label className={styles.registrationFormLabel}>
@@ -64,7 +64,7 @@ export default function Register() {
               {...register('password', { required: true })}
             />
             <p className={styles.registrationFormError}>
-              {errors.password?.message}
+              {errors.password ? t(errors.password?.message) : ''}
             </p>
           </label>
           <label className={styles.registrationFormLabel}>
@@ -75,7 +75,7 @@ export default function Register() {
               {...register('confiumPassword', { required: true })}
             />
             <p className={styles.registrationFormError}>
-              {errors.confiumPassword?.message}
+              {errors.confiumPassword ? t(errors.confiumPassword?.message) : ''}
             </p>
           </label>
           <button

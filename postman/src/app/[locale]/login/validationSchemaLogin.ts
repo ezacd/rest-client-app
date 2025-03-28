@@ -4,13 +4,10 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
 
 export const validationSchema = Yup.object({
   email: Yup.string()
-    .email('Invalid email address.')
-    .required('Email is required.'),
+    .email('invalid_email_address')
+    .required('email_is_required'),
 
   password: Yup.string()
-    .matches(
-      passwordRegex,
-      'Password must contain at least 8 characters, including: 1 digit, 1 uppercase letter, 1 lowercase letter, and 1 special character.',
-    )
-    .required('Password is required.'),
+    .matches(passwordRegex, 'password_must')
+    .required('password_is_required'),
 });

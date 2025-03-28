@@ -51,7 +51,7 @@ export default function Login() {
               {...register('email', { required: true })}
             />
             <p className={styles.registrationFormError}>
-              {errors.email?.message}
+              {errors.email ? t(errors.email?.message) : ''}
             </p>
           </label>
           <label className={styles.registrationFormLabel}>
@@ -62,7 +62,7 @@ export default function Login() {
               {...register('password', { required: true })}
             />
             <p className={styles.registrationFormError}>
-              {errors.password?.message}
+              {errors.password ? t(errors.password?.message) : ''}
             </p>
           </label>
 
