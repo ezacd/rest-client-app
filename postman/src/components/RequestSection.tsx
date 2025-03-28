@@ -1,10 +1,10 @@
 'use client';
 
 import CreateRequest from './CreateRequest';
-import styles from '@/app/_components/SelectTable.module.css';
+import styles from '@/components/SelectTable.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../_store/store';
-import { setActiveTab } from '../_store/requestSlice';
+import { RootState } from '../store/store';
+import { setActiveTab } from '../store/requestSlice';
 import ParamsTable from './ParamsTable';
 import { useTranslations } from 'next-intl';
 import ResponseSection from './ResponseSection';

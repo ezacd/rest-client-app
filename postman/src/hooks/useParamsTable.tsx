@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../_store/store';
 import {
   setParams,
   setHeadersParams,
@@ -8,8 +7,9 @@ import {
   setVariables,
   setBody,
   setHistory,
-} from '../_store/requestSlice';
-import { Param } from '../_components/RequestSection';
+} from '../store/requestSlice';
+import { Param } from '../components/RequestSection';
+import { RootState } from '@/store/store';
 
 type UseParamsTableProps = {
   paramType: 'headersParams' | 'params' | 'variables' | 'body';

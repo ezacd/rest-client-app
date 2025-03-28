@@ -7,10 +7,10 @@ import { routing } from '@/i18n/routing';
 import styles from '@/app/page.module.css';
 import '../globals.css';
 import Link from 'next/link';
-import HeaderLangChange from '../_components/HeaderLangChange';
 import { Locale } from '@/i18n/request';
 import AuthProvider from '@/provider/AuthProvider';
-import LogOut from '../_components/LogOutButton';
+import HeaderLangChange from '@/components/HeaderLangChange';
+import LogOut from '@/components/LogOutButton';
 
 export const metadata: Metadata = {
   title: 'Postman',

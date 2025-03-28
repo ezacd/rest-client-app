@@ -2,9 +2,9 @@
 
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../_store/store';
+import { RootState } from '../store/store';
 import { FixedSizeList as List } from 'react-window';
-import styles from '@/app/_components/ResponseSection.module.css';
+import styles from '@/components/ResponseSection.module.css';
 import Copy from '@/assets/icons/copy.svg';
 import Check from '@/assets/icons/check.svg';
 import { useTranslations } from 'next-intl';

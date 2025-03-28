@@ -1,12 +1,12 @@
 import HistorySvg from '@/assets/icons/history.svg';
-import styles from '@/app/_components/asideMenu/asideMenuButtons/CodeGeneration.module.css';
+import styles from '@/components/asideMenu/asideMenuButtons/CodeGeneration.module.css';
 import { useTranslations } from 'next-intl';
 import CloseSvg from '@/assets/icons/close.svg';
 import Copy from '@/assets/icons/copy.svg';
 import Check from '@/assets/icons/check.svg';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/app/_store/store';
+import { RootState } from '@/store/store';
 import HTTPSnippet from 'httpsnippet';
 
 type BurgerMenuState = {
