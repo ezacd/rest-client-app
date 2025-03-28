@@ -15,7 +15,13 @@ export function middleware(req: NextRequest) {
 
   const referer = req.headers.get('referer')?.split('/');
 
-  const last = referer![referer!.length - 1] || 'register';
+  let last;
+
+  if (referer) {
+    last = referer[referer.length - 1];
+  } else {
+    last = 'register';
+  }
 
   if (!token && !isRegisterPage && !isLoginPage) {
     const localeMatches = [...currentPath.matchAll(/\/(ru|en)/g)];
