@@ -10,6 +10,7 @@ import Link from 'next/link';
 import styles from './login.module.css';
 import { validationSchema } from './validationSchemaLogin';
 import { useTranslations } from 'next-intl';
+import { setCookie } from 'cookies-next';
 
 export default function Login() {
   const t = useTranslations('RegisterPage');
@@ -26,7 +27,9 @@ export default function Login() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const submitForm = (values: any) => {
     signInWithEmailAndPassword(auth, values.email, values.password)
-      .then(() => {
+      .then((userCredential) => {
+        const token = userCredential.user.getIdToken();
+        setCookie('token', token);
         router.push('/');
       })
       .catch((e) => {

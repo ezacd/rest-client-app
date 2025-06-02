@@ -8,6 +8,7 @@ export function middleware(req: NextRequest) {
   const response = intlMiddleware(req);
 
   const token = req.cookies.get('token')?.value;
+  console.log(token);
   const currentPath = req.nextUrl.pathname;
 
   const isRegisterPage = /^\/(ru|en)?\/?register$/.test(currentPath);

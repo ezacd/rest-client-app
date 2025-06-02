@@ -16,7 +16,7 @@
     "cookies-next": "^5.1.0",
     "firebase": "^11.5.0",
     "httpsnippet": "^2.0.0",
-    "next": "15.1.7",
+    "next": "^15.3.3",
     "next-intl": "^3.26.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

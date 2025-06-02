@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from './validationSchemaRegister';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { setCookie } from 'cookies-next';
 
 export default function Register() {
   const t = useTranslations('RegisterPage');
@@ -27,8 +28,10 @@ export default function Register() {
   const submitForm = async (values: any) => {
     console.log('Register form values', values);
     createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then(() => {
+      .then((userCredential) => {
         reset();
+        const token = userCredential.user.getIdToken();
+        setCookie('token', token);
         router.push('/');
       })
       .catch((e) => {

@@ -5,6 +5,7 @@ import styles from '@/app/page.module.css';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/services/firebase';
 import { useRouter } from 'next/navigation';
+import { deleteCookie } from 'cookies-next';
 
 export default function LogOut() {
   const router = useRouter();
@@ -12,6 +13,7 @@ export default function LogOut() {
   const handleClick = () => {
     signOut(auth)
       .then(() => {
+        deleteCookie('token');
         router.push('/');
       })
       .catch((e) => {
